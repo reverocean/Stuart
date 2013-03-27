@@ -17,7 +17,7 @@ public class RecommendationServiceTest {
 
         com.github.smart.service.RecommendationService persistence = mock(DefaultRecommendationService.class);
         when(persistence.retrieveBrands()).thenReturn(of("REVER", "DREAMHEAD", "TOM"));
-        when(persistence.findCustomerBrands("12345")).thenReturn(of("TOM"));
+        when(persistence.findCustomerBrands(12345)).thenReturn(of("TOM"));
         when(persistence.retrieveSimilarity("TOM", "DREAMHEAD")).thenReturn(0.2);
         when(persistence.retrieveSimilarity("TOM", "REVER")).thenReturn(0.5);
 

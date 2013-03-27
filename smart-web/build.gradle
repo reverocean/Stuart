@@ -19,7 +19,7 @@ dependencies {
             "com.yammer.dropwizard:dropwizard-db:$dropwizardVersion",
             "com.yammer.dropwizard:dropwizard-hibernate:$dropwizardVersion",
             "com.bazaarvoice.dropwizard:dropwizard-configurable-assets-bundle:$dropwizardAssetsVersion",
-            project(':smart-match'),
+            project(':smart-match-job'),
             project(':smart-recommendation')
     )
 }

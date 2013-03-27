@@ -3,6 +3,5 @@ dependencies {
             project(':smart-match'),
             'org.springframework.batch:spring-batch-core:2.1.9.RELEASE',
             'org.springframework.batch:spring-batch-infrastructure:2.1.9.RELEASE'
-
     )
 }

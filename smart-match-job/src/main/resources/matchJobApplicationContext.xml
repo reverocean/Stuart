@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
 
 
-    <job id="simpleTaskletStepJob" xmlns="http://www.springframework.org/schema/batch">
+    <job id="matchJob" xmlns="http://www.springframework.org/schema/batch">
         <step id="simpleTaskletStep">
             <tasklet>
                 <chunk reader="itemReader" writer="itemWriter" commit-interval="1"/>
@@ -18,7 +18,7 @@
     </job>
 
     <bean id="itemReader" class="org.springframework.batch.item.database.HibernateCursorItemReader">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <!--<property name="jdbcTemplate" ref="jdbcTemplate"/>-->
     </bean>
 
     <bean id="itemWriter" class="com.github.smart.match.job.CustomerWriter">
