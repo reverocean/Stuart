@@ -1,5 +1,6 @@
 package com.github.smart.web.resources;
 
+import com.github.smart.service.LessThanService;
 import com.github.smart.web.domains.Customer;
 
 import javax.ws.rs.GET;
@@ -11,15 +12,15 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-/**
- * User: Haiyang
- * Date: 3/27/13
- * Time: 6:05 PM
- */
-
 @Path("/lessThan/{limit}")
 @Produces(MediaType.APPLICATION_JSON)
 public class LessThanResource {
+    private LessThanService service;
+
+    public LessThanResource(LessThanService service) {
+        this.service = service;
+    }
+
     @GET
     public List<Customer> getCustomers(@PathParam("limit") int limit) {
         return newArrayList(

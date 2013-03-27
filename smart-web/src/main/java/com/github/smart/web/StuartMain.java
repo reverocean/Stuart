@@ -2,6 +2,7 @@ package com.github.smart.web;
 
 import com.bazaarvoice.dropwizard.assets.ConfiguredAssetsBundle;
 import com.github.smart.domain.Customer;
+import com.github.smart.service.DefaultLessThanService;
 import com.github.smart.web.config.StuartConfiguration;
 import com.github.smart.web.resources.LessThanResource;
 import com.github.smart.web.resources.StuartResource;
@@ -35,6 +36,6 @@ public class StuartMain extends Service<StuartConfiguration> {
     @Override
     public void run(StuartConfiguration configuration, Environment environment) throws Exception {
         environment.addResource(new StuartResource());
-        environment.addResource(new LessThanResource());
+        environment.addResource(new LessThanResource(new DefaultLessThanService(hibernate.getSessionFactory())));
     }
 }
