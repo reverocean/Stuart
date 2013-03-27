@@ -17,7 +17,7 @@ public class RecommendationService {
     }
 
     public List<String> recommendBrands(String customerId, int limit) {
-        List<BrandSimilarity> brandSimilarities = getBrandSimilarities(service.findCustomerBrands(customerId), service.retrieveBrands());
+        List<BrandSimilarity> brandSimilarities = getBrandSimilarities(service.findCustomerBrands(Integer.parseInt(customerId)), service.retrieveBrands());
         return FluentIterable.from(brandSimilarities).transform(toBrand()).limit(limit).toList();
     }
 
