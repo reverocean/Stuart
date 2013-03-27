@@ -1,6 +1,10 @@
 dependencies {
-    compile( 
-        project(':smart-match'),
-        project(':smart-persistence')
+    compile(
+            project(':smart-match'),
+            project(':smart-persistence')
+    )
+
+    testCompile(
+            'org.mockito:mockito-core:1.9.5'
     )
 }

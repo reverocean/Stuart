@@ -18,4 +18,12 @@ public class RecommendationPersistence {
     public int countEitherBrand(String thisBrand, String thatBrand) {
         return 1;
     }
+
+    public List<String> findCustomerBrands(String customerId) {
+        return null;
+    }
+
+    public double retrieveSimilarity(String customerBrand, String brand) {
+        return 0.;
+    }
 }
