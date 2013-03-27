@@ -6,7 +6,7 @@ public class Customer implements SimilarityComparator<Customer>, FieldsCounter
 {
     private int id;
     private String name;
-    private Set<String> brands;
+    private Set<Profile> profiles;
 
     public Customer()
     {
@@ -41,16 +41,16 @@ public class Customer implements SimilarityComparator<Customer>, FieldsCounter
     @Override
     public int totalFields()
     {
-        return 5; //+ this.address.totalFields();
+        return 5;
     }
 
-    public Set<String> getBrands()
+    public Set<Profile> getProfiles()
     {
-        return brands;
+        return profiles;
     }
 
-    public void setBrands(Set<String> brands)
+    public void setProfiles(Set<Profile> profiles)
     {
-        this.brands = brands;
+        this.profiles = profiles;
     }
 }

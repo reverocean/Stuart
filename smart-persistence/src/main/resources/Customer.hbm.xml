@@ -13,7 +13,7 @@
             <column name="NAME" not-null="true"/>
         </property>
 
-        <set name="brands" table="CUSTOMER_BRAND">
+        <set name="profiles" table="CUSTOMER_BRAND">
             <key column="CUSTOMER_ID" />
             <element column="BRAND" type="string" />
         </set>
