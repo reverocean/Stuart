@@ -1,7 +1,6 @@
 package com.github.smart.domain;
 
-public class Address
-{
+public class Address implements SimilarityComparator<Address>, FieldsCounter {
     private int id;
     private String state;
     private String postCode;
@@ -9,62 +8,60 @@ public class Address
     private String street;
     private String addressLine;
 
-    public Address()
-    {
+    public Address() {
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getState()
-    {
+    public String getState() {
         return state;
     }
 
-    public void setState(String state)
-    {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public String getPostCode()
-    {
+    public String getPostCode() {
         return postCode;
     }
 
-    public void setPostCode(String postCode)
-    {
+    public void setPostCode(String postCode) {
         this.postCode = postCode;
     }
 
-    public String getCity()
-    {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(String city)
-    {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public String getStreet()
-    {
+    public String getStreet() {
         return street;
     }
 
-    public void setStreet(String street)
-    {
+    public void setStreet(String street) {
         this.street = street;
     }
 
-    public String getAddressLine()
-    {
+    public String getAddressLine() {
         return addressLine;
     }
 
-    public void setAddressLine(String addressLine)
-    {
+    public void setAddressLine(String addressLine) {
         this.addressLine = addressLine;
+    }
+
+    @Override
+    public int totalFields() {
+        return 5;
+    }
+
+    @Override
+    public int compare(Address target) {
+        return 0;
     }
 }
