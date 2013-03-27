@@ -22,7 +22,7 @@
     </bean>
 
     <bean id="itemWriter" class="com.github.smart.match.job.CustomerWriter">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <!--<property name="jdbcTemplate" ref="jdbcTemplate"/>-->
     </bean>
 
 
