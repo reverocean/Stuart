@@ -19,4 +19,5 @@
                      cascade="save-update"
                      unique="true"/>
     </class>
+
 </hibernate-mapping>

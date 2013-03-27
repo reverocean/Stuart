@@ -13,9 +13,14 @@
             <column name="NAME" not-null="true"/>
         </property>
 
-        <set name="profiles" table="CUSTOMER_BRAND">
-            <key column="CUSTOMER_ID" />
-            <element column="BRAND" type="string" />
+        <set name="profiles" table="CUSTOMER_PROFILE"
+             inverse="false" lazy="true" fetch="select" cascade="all" >
+            <key>
+                <column name="CUSTOMER_ID" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.github.smart.domain.Profile">
+                <column name="PROFILE_ID" not-null="true" />
+            </many-to-many>
         </set>
 
     </class>
