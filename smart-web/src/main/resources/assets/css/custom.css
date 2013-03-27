@@ -2,12 +2,9 @@ body {
 	background: #eee;
 }
 
-#search {
-	margin-top: 10px;
+#search_customers {
+    margin-top: 10px;
 	margin-left: 360px;
-}
-
-#search input[type="text"] {
     background: #444;
     border: 0 none;
     font: bold 14px Arial,Helvetica,Sans-serif;
@@ -28,11 +25,16 @@ body {
     transition: all 0.7s ease 0s;
 }
 
-#search input[type="text"]:focus {
+#search_customers:focus {
     width: 200px;
     border: 0 none;
 }
 
-.rec a.name span {
-	display: none;
+#accordion h3 a {
+    width: 240px;
+    display: inline-block;
+}
+
+.brands {
+    margin-left: 100px;
 }

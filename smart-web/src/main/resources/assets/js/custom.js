@@ -1,7 +1,6 @@
 $(function(){
-	$("#accordion").accordion({
-		heightStyle: "content"
-	});
+	Stuart.init();
+	Stuart.search();
 
 	$("#dialog").dialog({
       autoOpen: false,
@@ -20,9 +19,10 @@ $(function(){
 
 	$(".rec a.name").each(function() {
 		$(this).click(function() {
-	      		
+
 	      $("#dialog").dialog("open");
 	    });
 	});
+
 });
 
