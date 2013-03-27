@@ -1,4 +1,4 @@
-package com.github.smart.recommendation.persistence;
+package com.github.smart.persistence;
 
 import java.util.List;
 

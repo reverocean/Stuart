@@ -1,6 +1,6 @@
 package com.github.smart.recommendation;
 
-import com.github.smart.recommendation.persistence.RecommendationPersistence;
+import com.github.smart.persistence.RecommendationPersistence;
 import org.junit.Test;
 
 import java.util.List;
