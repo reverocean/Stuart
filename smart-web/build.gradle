@@ -1,12 +1,17 @@
-apply plugin:'application'
+apply plugin: 'application'
 
 mainClassName = "com.github.smart.web.StuartMain"
 
+project.ext {
+    dropwizardVersion = '0.6.2'
+}
+
 dependencies {
-    compile( 
-        'com.yammer.dropwizard:dropwizard-core:0.6.2',
-        project(':smart-match'),
-        project(':smart-recommendation')
+    compile(
+            "com.yammer.dropwizard:dropwizard-core:$dropwizardVersion",
+            "com.yammer.dropwizard:dropwizard-views:$dropwizardVersion",
+            project(':smart-match'),
+            project(':smart-recommendation')
     )
 }
 
