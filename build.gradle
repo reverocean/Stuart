@@ -1,4 +1,4 @@
-group = 'com.tw.smart'
+group = 'com.github.smart'
 version = '0.1'
 
 allprojects {
