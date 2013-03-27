@@ -28,10 +28,11 @@ public class DefaultCustomerServiceTest
     @Test
     public void test(){
 //        defaultCustomerService.saveIndividual();
-        defaultCustomerService.saveIndividual("suncorp");
-        defaultCustomerService.saveIndividual("aami");
-        defaultCustomerService.saveIndividual("bingle");
+//        defaultCustomerService.saveIndividual("suncorp");
+//        defaultCustomerService.saveIndividual("aami");
+//        defaultCustomerService.saveIndividual("bingle");
         recommendationService.saveSimilarity("suncorp", "bingle", 12.0);
+        defaultCustomerService.createCustomer();
         List<String> strings = recommendationService.retrieveBrands();
         System.out.println("dd");
         System.out.println(strings.size());

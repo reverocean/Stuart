@@ -1,7 +1,6 @@
 package com.github.smart.service;
 
 import com.github.smart.domain.Customer;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface CustomerService
 {
@@ -9,6 +8,6 @@ public interface CustomerService
 
     public void save(Customer customer);
 
-    @Transactional
     void saveIndividual(String brand);
+    void createCustomer();
 }
