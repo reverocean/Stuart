@@ -4,5 +4,5 @@ import com.github.smart.match.Similarity;
 import com.github.smart.domain.Customer;
 
 public interface MatchStrategy {
-    Similarity match(Customer firstCustomer, Customer secondCustomer);
+    public Similarity match(Customer firstCustomer, Customer secondCustomer);
 }
