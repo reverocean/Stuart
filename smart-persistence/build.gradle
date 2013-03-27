@@ -1,0 +1,12 @@
+dependencies {
+    compile 'mysql:mysql-connector-java:5.1.10'
+    compile 'commons-dbcp:commons-dbcp:1.4'
+    compile 'org.springframework:spring-context:3.1.0.RELEASE'
+    compile 'org.springframework:spring-jdbc:3.1.0.RELEASE'
+    compile 'org.springframework:spring-core:3.1.0.RELEASE'
+    compile 'org.springframework:spring-orm:3.1.0.RELEASE'
+    compile 'commons-codec:commons-codec:1.7'
+    compile 'org.hibernate:hibernate-core:4.1.10.Final'
+    testCompile 'org.hsqldb:hsqldb:2.2.9'
+    testCompile "org.springframework:spring-test:3.1.0.RELEASE"
+}
