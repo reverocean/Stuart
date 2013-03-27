@@ -1,6 +1,5 @@
 package com.github.smart.recommendation;
 
-import com.github.smart.persistence.RecommendationPersistence;
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 
@@ -11,14 +10,14 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class RecommendationService {
-    private RecommendationPersistence persistence;
+    private com.github.smart.service.RecommendationService service;
 
-    public RecommendationService(RecommendationPersistence persistence) {
-        this.persistence = persistence;
+    public RecommendationService(com.github.smart.service.RecommendationService service) {
+        this.service = service;
     }
 
     public List<String> recommendBrands(String customerId, int limit) {
-        List<BrandSimilarity> brandSimilarities = getBrandSimilarities(persistence.findCustomerBrands(customerId), persistence.retrieveBrands());
+        List<BrandSimilarity> brandSimilarities = getBrandSimilarities(service.findCustomerBrands(customerId), service.retrieveBrands());
         return FluentIterable.from(brandSimilarities).transform(toBrand()).limit(limit).toList();
     }
 
@@ -29,7 +28,7 @@ public class RecommendationService {
             if (!customerBrands.contains(brand)) {
                 double similarity = 0;
                 for (String customerBrand : customerBrands) {
-                    similarity += persistence.retrieveSimilarity(customerBrand, brand);
+                    similarity += service.retrieveSimilarity(customerBrand, brand);
                 }
                 brandSimilarities.add(new BrandSimilarity(brand, similarity));
             }

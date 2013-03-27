@@ -1,6 +1,6 @@
 package com.github.smart.recommendation;
 
-import com.github.smart.persistence.RecommendationPersistence;
+import com.github.smart.service.DefaultRecommendationService;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,13 +15,13 @@ public class RecommendationServiceTest {
     @Test
     public void should_recommend_brand() {
 
-        RecommendationPersistence persistence = mock(RecommendationPersistence.class);
+        com.github.smart.service.RecommendationService persistence = mock(DefaultRecommendationService.class);
         when(persistence.retrieveBrands()).thenReturn(of("REVER", "DREAMHEAD", "TOM"));
         when(persistence.findCustomerBrands("12345")).thenReturn(of("TOM"));
         when(persistence.retrieveSimilarity("TOM", "DREAMHEAD")).thenReturn(0.2);
         when(persistence.retrieveSimilarity("TOM", "REVER")).thenReturn(0.5);
 
-        RecommendationService service = new RecommendationService(persistence);
+        com.github.smart.recommendation.RecommendationService service = new com.github.smart.recommendation.RecommendationService(persistence);
         List<String> brands = service.recommendBrands("12345", 1);
         assertThat(brands.size(), is(1));
         assertThat(brands.get(0), is("REVER"));
