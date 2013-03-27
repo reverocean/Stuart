@@ -1,0 +1,1 @@
+include 'smart-match', 'smart-persistance', 'smart-recommendation', 'smart-web'

@@ -1,14 +1,23 @@
-apply plugin: 'java'
-apply plugin: 'idea'
+group = 'com.tw.smart'
+version = '0.1'
 
-
-repositories {
-    mavenCentral()
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
 }
+subprojects {
+    repositories {
+        mavenCentral()
+    }
 
-dependencies {
-    compile(
-     ''   
-    )
+    dependencies {
+        compile (
+            'com.google.guava:guava:14.0.1'
+        )
+        testCompile(
+                'junit:junit:4.11'
+        )
+    }
+
 }
 
