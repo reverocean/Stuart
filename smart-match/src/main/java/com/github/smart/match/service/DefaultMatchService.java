@@ -5,7 +5,6 @@ import com.github.smart.match.strategy.MatchStrategy;
 import com.github.smart.service.ProfileService;
 
 public class DefaultMatchService implements MatchService{
-    public static final int MATCH_THRESHOLD = 100;
     private MatchStrategy matchStrategy;
     private ProfileService profileService;
 
@@ -14,7 +13,7 @@ public class DefaultMatchService implements MatchService{
         Similarity similarity = matchStrategy.match(
                 profileService.findById(firstProfileId),
                 profileService.findById(secondProfileId));
-        return similarity.equalOrGreaterThan(MATCH_THRESHOLD);
+        return similarity.satisfied();
     }
 
     public void setMatchStrategy(MatchStrategy matchStrategy) {

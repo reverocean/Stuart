@@ -26,7 +26,7 @@ public class PerfectMatchStrategyTest {
         PerfectMatchStrategy perfectMatchStrategy = new PerfectMatchStrategy();
         Similarity similarity = perfectMatchStrategy.match(profile, profile);
         assertThat(similarity.getPercentage(), is(100));
-        assertThat(similarity.equalOrGreaterThan(100), is(true));
+        assertThat(similarity.satisfied(), is(true));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class PerfectMatchStrategyTest {
         PerfectMatchStrategy perfectMatchStrategy = new PerfectMatchStrategy();
         Similarity similarity = perfectMatchStrategy.match(firstProfile, secondProfile);
         assertThat(similarity.getPercentage(), is(77));
-        assertThat(similarity.equalOrGreaterThan(100), is(false));
+        assertThat(similarity.satisfied(), is(false));
     }
 
     private Profile createProfile(String name, String gender, String email, String state, String postCode, String city, String street, String addressLine) {
