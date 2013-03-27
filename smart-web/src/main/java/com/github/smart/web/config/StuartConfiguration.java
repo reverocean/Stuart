@@ -1,8 +1,6 @@
 package com.github.smart.web.config;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.yammer.dropwizard.config.Configuration;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * User: Haiyang
