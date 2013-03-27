@@ -1,9 +1,13 @@
 package com.github.smart.service;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Required;
+
 import java.util.List;
 
 public class DefaultRecommendationService implements RecommendationService
 {
+    private SessionFactory sessionFactory;
     @Override
     public List<String> retrieveBrands() {
         return null;
@@ -32,5 +36,11 @@ public class DefaultRecommendationService implements RecommendationService
     @Override
     public double retrieveSimilarity(String customerBrand, String brand) {
         return 0.;
+    }
+
+    @Required
+    public void setSessionFactory(SessionFactory sessionFactory)
+    {
+        this.sessionFactory = sessionFactory;
     }
 }

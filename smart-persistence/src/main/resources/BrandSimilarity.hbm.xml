@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.github.smart.domain.BrandSimilarity" table="BRAND_SIMILARITY" lazy="false">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+
+        <property name="thisBrand" type="string">
+            <column name="THIS_BRAND" not-null="true"/>
+        </property>
+
+        <property name="thatBrand" type="string">
+            <column name="THAT_BRAND" not-null="true"/>
+        </property>
+
+        <property name="similarity" type="string">
+            <column name="SIMILARITY" not-null="true"/>
+        </property>
+
+    </class>
+</hibernate-mapping>
