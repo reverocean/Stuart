@@ -12,7 +12,7 @@ public interface RecommendationService
 
     int countEitherBrand(String thisBrand, String thatBrand);
 
-    List<String> findCustomerBrands(String customerId);
+    List<String> findCustomerBrands(int customerId);
 
     Double retrieveSimilarity(String thisBrand, String thatBrand);
 }
