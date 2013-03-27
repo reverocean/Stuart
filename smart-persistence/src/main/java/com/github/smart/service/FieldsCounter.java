@@ -1,4 +1,4 @@
-package com.github.smart.domain;
+package com.github.smart.service;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.github.smart.domain.Individual" table="INDIVIDUAL" lazy="false">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+
+        <property name="name" type="string">
+            <column name="NAME" not-null="true"/>
+        </property>
+
+        <property name="email" type="string">
+            <column name="EMAIL" not-null="true"/>
+        </property>
+
+        <property name="dateOfBirth" type="date">
+            <column name="DATE_OF_BIRTH" not-null="true"/>
+        </property>
+
+        <property name="registerTime" type="timestamp" not-null="true">
+            <column name="REGISTER_TIME" not-null="true" />
+        </property>
+
+        <component name="address" class="com.github.smart.domain.Address">
+            <property name="state" column="STATE"/>
+            <property name="postCode" column="POST_CODE"/>
+            <property name="city" column="CITY"/>
+            <property name="street" column="STREET"/>
+            <property name="addressLine" column="ADDRESS_LINE"/>
+        </component>
+
+    </class>
+</hibernate-mapping>

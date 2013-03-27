@@ -1,7 +1,10 @@
 package com.github.smart.domain;
 
-public class Address implements SimilarityComparator<Address>, FieldsCounter {
-    private int id;
+import com.github.smart.service.FieldsCounter;
+import com.github.smart.service.SimilarityComparator;
+
+public class Address implements SimilarityComparator<Address>, FieldsCounter
+{
     private String state;
     private String postCode;
     private String city;
@@ -9,10 +12,6 @@ public class Address implements SimilarityComparator<Address>, FieldsCounter {
     private String addressLine;
 
     public Address() {
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getState() {
