@@ -13,7 +13,12 @@
             <column name="BRAND" not-null="true"/>
         </property>
 
-        <one-to-one name="individual" class="com.github.smart.domain.Individual"
-                    cascade="save-update"></one-to-one>
+
+        <many-to-one name="individual"
+                     class="com.github.smart.domain.Individual"
+                     column="INDIVIDUAL_ID"
+                     cascade="save-update"
+                     unique="true"/>
+
     </class>
 </hibernate-mapping>
