@@ -1,4 +1,4 @@
-package com.github.smart.service;
+package com.github.smart.domain;
 
 public interface FieldsCounter {
     public int totalFields();

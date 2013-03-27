@@ -1,8 +1,5 @@
 package com.github.smart.domain;
 
-import com.github.smart.service.FieldsCounter;
-import com.github.smart.service.SimilarityComparator;
-
 import java.util.Set;
 
 public class Customer implements SimilarityComparator<Customer>, FieldsCounter

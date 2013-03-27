@@ -1,6 +1,7 @@
 package com.github.smart.match.job;
 
 import com.github.smart.domain.MatchIndicator;
+import com.github.smart.domain.Profile;
 import com.github.smart.match.service.MatchService;
 import org.springframework.batch.item.ItemWriter;
 
@@ -27,7 +28,7 @@ public class CustomerWriter implements ItemWriter<Profile> {
                 matchAndSaveProfile(firstProfile, matched, items.get(second));
             }
             matched.add(firstProfile);
-            matchedProfiles.put(firstProfile.getProfileId(), matched);
+            matchedProfiles.put(firstProfile.getId(), matched);
         }
 
         writeToCustomer(matchedProfiles);
@@ -37,7 +38,7 @@ public class CustomerWriter implements ItemWriter<Profile> {
         if (hadBeenMatched(secondProfile)) {
             return;
         }
-        if (matchService.matchCustomer(firstProfile.getProfileId(), secondProfile.getProfileId())) {
+        if (matchService.matchCustomer(firstProfile.getId(), secondProfile.getId())) {
             matched.add(secondProfile);
             ((MatchIndicator) secondProfile).hit();
         }

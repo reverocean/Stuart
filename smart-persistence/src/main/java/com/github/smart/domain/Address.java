@@ -1,8 +1,5 @@
 package com.github.smart.domain;
 
-import com.github.smart.service.FieldsCounter;
-import com.github.smart.service.SimilarityComparator;
-
 public class Address implements SimilarityComparator<Address>, FieldsCounter
 {
     private String state;
