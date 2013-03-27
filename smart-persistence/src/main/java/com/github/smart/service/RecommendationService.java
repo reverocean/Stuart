@@ -14,5 +14,5 @@ public interface RecommendationService
 
     List<String> findCustomerBrands(String customerId);
 
-    double retrieveSimilarity(String customerBrand, String brand);
+    Double retrieveSimilarity(String thisBrand, String thatBrand);
 }

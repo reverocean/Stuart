@@ -5,8 +5,8 @@
 <hibernate-mapping>
     <class name="com.github.smart.domain.Customer" table="CUSTOMER" lazy="false">
         <id name="id" type="int">
-            <column name="ID" />
-            <generator class="increment" />
+            <column name="ID"/>
+            <generator class="increment"/>
         </id>
 
         <property name="name" type="string">
@@ -14,12 +14,12 @@
         </property>
 
         <set name="profiles" table="CUSTOMER_PROFILE"
-             inverse="false" lazy="true" fetch="select" cascade="all" >
+             inverse="false" lazy="true" fetch="select" cascade="all">
             <key>
-                <column name="CUSTOMER_ID" not-null="true" />
+                <column name="CUSTOMER_ID" not-null="true"/>
             </key>
             <many-to-many entity-name="com.github.smart.domain.Profile">
-                <column name="PROFILE_ID" not-null="true" />
+                <column name="PROFILE_ID" not-null="true"/>
             </many-to-many>
         </set>
 

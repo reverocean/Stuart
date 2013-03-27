@@ -5,8 +5,8 @@
 <hibernate-mapping>
     <class name="com.github.smart.domain.BrandSimilarity" table="BRAND_SIMILARITY" lazy="false">
         <id name="id" type="int">
-            <column name="ID" />
-            <generator class="increment" />
+            <column name="ID"/>
+            <generator class="increment"/>
         </id>
 
         <property name="thisBrand" type="string">

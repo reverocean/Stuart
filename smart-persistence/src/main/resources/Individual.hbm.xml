@@ -5,8 +5,8 @@
 <hibernate-mapping>
     <class name="com.github.smart.domain.Individual" table="INDIVIDUAL" lazy="false">
         <id name="id" type="int">
-            <column name="ID" />
-            <generator class="increment" />
+            <column name="ID"/>
+            <generator class="increment"/>
         </id>
 
         <property name="name" type="string">
@@ -22,7 +22,7 @@
         </property>
 
         <property name="registerTime" type="timestamp" not-null="true">
-            <column name="REGISTER_TIME" not-null="true" />
+            <column name="REGISTER_TIME" not-null="true"/>
         </property>
 
         <component name="address" class="com.github.smart.domain.Address">

@@ -48,8 +48,14 @@ public class DefaultRecommendationService implements RecommendationService
     }
 
     @Override
-    public double retrieveSimilarity(String customerBrand, String brand) {
-        return 0.;
+    @Transactional
+    public Double retrieveSimilarity(String thisBrand, String thatBrand) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        SQLQuery query = currentSession.createSQLQuery("SELECT SIMILARITY FROM BRAND_SIMILARITY WHERE THIS_BRAND = :thisBrand AND THAT_BRAND = :thatBrand");
+        query.setString("thisBrand",thisBrand).setString("thatBrand", thatBrand);
+        return (Double) query.list().get(0);
+
+
     }
 
     @Required

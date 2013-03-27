@@ -34,7 +34,9 @@ public class DefaultCustomerServiceTest
         recommendationService.saveSimilarity("suncorp", "bingle", 12.0);
         defaultCustomerService.createCustomer();
         List<String> strings = recommendationService.retrieveBrands();
+        Double aDouble = recommendationService.retrieveSimilarity("suncorp", "bingle");
         System.out.println("dd");
         System.out.println(strings.size());
+        System.out.println(aDouble);
     }
 }
