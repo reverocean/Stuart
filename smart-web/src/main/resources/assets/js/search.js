@@ -29,12 +29,21 @@ var Stuart = {
         $("#accordion").accordion({
         	heightStyle: "content"
         });
+    },
+
+    first_customer_recommend_brands : function(customers){
+        if(customers.length > 0){
+            Recommendation.recommend(customers[0].customerId);
+        }
     }
 };
 
 var Recommendation = {
     recommend: function(id){
-
+        recommend_url += id;
+        $.get(recommend_url, function(brands){
+            $("#brands_for_" + id).html(brands.join(', '))
+        }, "JSON")
     }
 };
 
