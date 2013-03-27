@@ -18,6 +18,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 public class DefaultRecommendationService implements RecommendationService
 {
+    public static final String ALL_BRANDS_QUERY = "SELECT DISTINCT BRAND FROM PROFILE";
     private SessionFactory sessionFactory;
 
     @Override
@@ -25,7 +26,7 @@ public class DefaultRecommendationService implements RecommendationService
     public List<String> retrieveBrands()
     {
         Session currentSession = sessionFactory.getCurrentSession();
-        SQLQuery sqlQuery = currentSession.createSQLQuery("SELECT DISTINCT BRAND FROM PROFILE");
+        SQLQuery sqlQuery = currentSession.createSQLQuery(ALL_BRANDS_QUERY);
         return sqlQuery.list();
     }
 
@@ -33,24 +34,31 @@ public class DefaultRecommendationService implements RecommendationService
     @Transactional
     public void saveSimilarity(String thisBrand, String thatBrand, double similarity)
     {
-        BrandSimilarity brandSimilarity = new BrandSimilarity();
-        brandSimilarity.setThisBrand(thisBrand);
-        brandSimilarity.setThatBrand(thatBrand);
-        brandSimilarity.setSimilarity(similarity);
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(brandSimilarity);
+        currentSession.save(createBrandSimilarity(thisBrand, thatBrand, similarity));
     }
 
     @Override
+    @Transactional
     public int countBothBrands(String thisBrand, String thatBrand)
     {
-        return 1;
+        Session currentSession = sessionFactory.getCurrentSession();
+        List<Customer> customers = currentSession.createQuery("from Customer").list();
+        return countBothBrandsCustomer(thisBrand, thatBrand, customers);
     }
 
     @Override
+    @Transactional
     public int countEitherBrand(String thisBrand, String thatBrand)
     {
-        return 1;
+        Session currentSession = sessionFactory.getCurrentSession();
+        List<Customer> customers = currentSession.createQuery("from Customer").list();
+        return countEitherBrandCustomer(thisBrand, thatBrand, customers);
+    }
+
+    private boolean containsEitherBrand(String thisBrand, String thatBrand, List<String> customerBrands)
+    {
+        return customerBrands.contains(thisBrand) || customerBrands.contains(thatBrand);
     }
 
     @Override
@@ -60,14 +68,8 @@ public class DefaultRecommendationService implements RecommendationService
         Session currentSession = sessionFactory.getCurrentSession();
         Customer customer = (Customer) currentSession.load(Customer.class, customerId);
 
-        Iterable<String> transform = transform(customer.getProfiles(), new Function<Profile, String>()
-        {
-            @Override
-            public String apply(Profile input)
-            {
-                return input.getBrand();
-            }
-        });
+        Function<Profile, String> brandFilter = createBrandFilter();
+        Iterable<String> transform = transform(customer.getProfiles(), brandFilter);
         return newArrayList(transform);
 
     }
@@ -88,5 +90,59 @@ public class DefaultRecommendationService implements RecommendationService
     public void setSessionFactory(SessionFactory sessionFactory)
     {
         this.sessionFactory = sessionFactory;
+    }
+
+    private BrandSimilarity createBrandSimilarity(String thisBrand, String thatBrand, double similarity)
+    {
+        BrandSimilarity brandSimilarity = new BrandSimilarity();
+        brandSimilarity.setThisBrand(thisBrand);
+        brandSimilarity.setThatBrand(thatBrand);
+        brandSimilarity.setSimilarity(similarity);
+        return brandSimilarity;
+    }
+
+    private Function<Profile, String> createBrandFilter()
+    {
+        return new Function<Profile, String>()
+        {
+            @Override
+            public String apply(Profile input)
+            {
+                return input.getBrand();
+            }
+        };
+    }
+
+    private int countBothBrandsCustomer(String thisBrand, String thatBrand, List<Customer> customers)
+    {
+        int count =0;
+        for(Customer customer : customers)
+        {
+            List<String> customerBrands = findCustomerBrands(customer.getId());
+            if(containsBothBrands(thisBrand, thatBrand, customerBrands))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private boolean containsBothBrands(String thisBrand, String thatBrand, List<String> customerBrands)
+    {
+        return customerBrands.contains(thisBrand) && customerBrands.contains(thatBrand);
+    }
+
+    private int countEitherBrandCustomer(String thisBrand, String thatBrand, List<Customer> customers)
+    {
+        int count =0;
+        for(Customer customer : customers)
+        {
+            List<String> customerBrands = findCustomerBrands(customer.getId());
+            if(containsEitherBrand(thisBrand, thatBrand, customerBrands))
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }
