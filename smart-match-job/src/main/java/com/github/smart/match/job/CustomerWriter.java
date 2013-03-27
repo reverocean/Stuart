@@ -1,6 +1,6 @@
 package com.github.smart.match.job;
 
-import com.github.smart.domain.MatchIndicator;
+import com.github.smart.domain.Customer;
 import com.github.smart.domain.Profile;
 import com.github.smart.match.service.MatchService;
 import com.github.smart.service.CustomerService;
@@ -8,9 +8,10 @@ import org.springframework.batch.item.ItemWriter;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Sets.newHashSet;
 
 public class CustomerWriter implements ItemWriter<Profile> {
     private MatchService matchService;
@@ -21,11 +22,11 @@ public class CustomerWriter implements ItemWriter<Profile> {
         if (items.size() < 2) {
             return;
         }
-        Map<Integer, List<Profile>> matchedProfiles = newHashMap();
+        Map<Integer, Set<Profile>> matchedProfiles = newHashMap();
 
         for (int first = 0; first < items.size() - 1; first++) {
             Profile firstProfile = items.get(first);
-            List<Profile> matched = newArrayList();
+            Set<Profile> matched = newHashSet();
             for (int second = 1; second < items.size(); second++) {
                 matchAndSaveProfile(firstProfile, matched, items.get(second));
             }
@@ -36,8 +37,8 @@ public class CustomerWriter implements ItemWriter<Profile> {
         writeToCustomer(matchedProfiles);
     }
 
-    private void matchAndSaveProfile(Profile firstProfile, List<Profile> matched, Profile secondProfile) {
-        if (hadBeenMatched(secondProfile)) {
+    private void matchAndSaveProfile(Profile firstProfile, Set<Profile> matched, Profile secondProfile) {
+        if (secondProfile.matched()) {
             return;
         }
         if (matchService.matchCustomer(firstProfile.getId(), secondProfile.getId())) {
@@ -46,13 +47,26 @@ public class CustomerWriter implements ItemWriter<Profile> {
         }
     }
 
-    private void writeToCustomer(Map<Integer, List<Profile>> matchedProfiles) {
-        for (List<Profile> profiles : matchedProfiles.values()) {
-
+    private void writeToCustomer(Map<Integer, Set<Profile>> matchedProfiles) {
+        for (Set<Profile> profiles : matchedProfiles.values()) {
+            if (profiles.size() > 0) {
+                Customer customer = new Customer();
+                customer.setName(getName(profiles));
+                customer.setProfiles(profiles);
+                customerService.save(customer);
+            }
         }
     }
 
-    private boolean hadBeenMatched(Profile secondProfile) {
-        return ((MatchIndicator)secondProfile).matched();
+    private String getName(Set<Profile> profiles) {
+        return profiles.iterator().next().getIndividual().getName();
+    }
+
+    public void setMatchService(MatchService matchService) {
+        this.matchService = matchService;
+    }
+
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
     }
 }

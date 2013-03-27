@@ -7,6 +7,8 @@ public interface CustomerService
 {
     public Customer findById(int customerId);
 
+    public void save(Customer customer);
+
     @Transactional
     void saveIndividual(String brand);
 }
