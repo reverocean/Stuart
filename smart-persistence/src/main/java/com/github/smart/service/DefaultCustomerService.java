@@ -24,7 +24,7 @@ public class DefaultCustomerService implements CustomerService
     
     @Override
     @Transactional
-    public void saveIndividual()
+    public void saveIndividual(String brand)
     {
         Session currentSession = sessionFactory.getCurrentSession();
         Individual individual = new Individual();
@@ -40,7 +40,7 @@ public class DefaultCustomerService implements CustomerService
         individual.setDateOfBirth(new Date(System.currentTimeMillis()));
         individual.setRegisterTime(new Timestamp(System.currentTimeMillis()));
         Profile profile = new Profile();
-        profile.setBrand("suncorp");
+        profile.setBrand(brand);
         profile.setIndividual(individual);
         currentSession.save(profile);
     }

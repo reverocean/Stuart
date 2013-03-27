@@ -8,5 +8,5 @@ public interface CustomerService
     public Customer findById(int customerId);
 
     @Transactional
-    void saveIndividual();
+    void saveIndividual(String brand);
 }

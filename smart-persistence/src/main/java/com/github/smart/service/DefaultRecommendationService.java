@@ -1,6 +1,7 @@
 package com.github.smart.service;
 
 import com.github.smart.domain.BrandSimilarity;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Required;
@@ -11,9 +12,13 @@ import java.util.List;
 public class DefaultRecommendationService implements RecommendationService
 {
     private SessionFactory sessionFactory;
+
     @Override
+    @Transactional
     public List<String> retrieveBrands() {
-        return null;
+        Session currentSession = sessionFactory.getCurrentSession();
+        SQLQuery sqlQuery = currentSession.createSQLQuery("SELECT DISTINCT BRAND FROM PROFILE");
+       return sqlQuery.list();
     }
 
     @Override
