@@ -20,10 +20,14 @@ public class DefaultCustomerServiceTest
     @Autowired
     CustomerService defaultCustomerService;
 
+    @Autowired
+    RecommendationService recommendationService;
+
     @Test
     public void test(){
 //        defaultCustomerService.saveIndividual();
         defaultCustomerService.saveIndividual();
+        recommendationService.saveSimilarity("suncorp","bingle",12.0);
         System.out.println("dd");
     }
 }

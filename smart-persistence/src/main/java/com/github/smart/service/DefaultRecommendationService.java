@@ -1,7 +1,10 @@
 package com.github.smart.service;
 
+import com.github.smart.domain.BrandSimilarity;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,8 +17,14 @@ public class DefaultRecommendationService implements RecommendationService
     }
 
     @Override
+    @Transactional
     public void saveSimilarity(String thisBrand, String thatBrand, double similarity) {
-        
+        BrandSimilarity brandSimilarity = new BrandSimilarity();
+        brandSimilarity.setThisBrand(thisBrand);
+        brandSimilarity.setThatBrand(thatBrand);
+        brandSimilarity.setSimilarity(similarity);
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.save(brandSimilarity);
     }
 
     @Override

@@ -17,7 +17,7 @@
             <column name="THAT_BRAND" not-null="true"/>
         </property>
 
-        <property name="similarity" type="string">
+        <property name="similarity" type="double">
             <column name="SIMILARITY" not-null="true"/>
         </property>
 
