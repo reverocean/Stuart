@@ -5,6 +5,8 @@ import com.github.smart.domain.Customer;
 import com.github.smart.domain.Profile;
 import com.github.smart.match.job.CustomerWriter;
 import com.github.smart.recommendation.RecommendationService;
+import com.github.smart.recommendation.RecommendationTask;
+import com.github.smart.recommendation.SimilarityCalculator;
 import com.github.smart.service.DefaultLessThanService;
 import com.github.smart.service.DefaultRecommendationService;
 import com.github.smart.web.config.StuartConfiguration;
@@ -55,10 +57,17 @@ public class StuartMain extends Service<StuartConfiguration> {
     public void run(StuartConfiguration configuration, Environment environment) throws Exception {
         environment.addResource(new StuartResource());
         environment.addResource(new LessThanResource(new DefaultLessThanService(hibernate.getSessionFactory())));
-        environment.addResource(createRecommendationResource());
+        DefaultRecommendationService daoRecommendationService = createDaoRecommendationService();
+        environment.addResource(createRecommendationResource(daoRecommendationService));
         environment.addResource(new RecommendResource());
 
         environment.addResource(createMatchJobResource(configuration));
+        environment.addResource(createRecommendationJobResource(daoRecommendationService));
+    }
+
+    private RecommendationJobResource createRecommendationJobResource(DefaultRecommendationService daoRecommendationService) {
+        RecommendationTask task = new RecommendationTask(daoRecommendationService, new SimilarityCalculator(daoRecommendationService));
+        return new RecommendationJobResource(task);
     }
 
     private MatchJobResource createMatchJobResource(StuartConfiguration configuration) {
@@ -117,10 +126,14 @@ public class StuartMain extends Service<StuartConfiguration> {
         return dataSource;
     }
 
-    private RecommendationResource createRecommendationResource() {
-        DefaultRecommendationService daoService = new DefaultRecommendationService();
-        daoService.setSessionFactory(hibernate.getSessionFactory());
+    private RecommendationResource createRecommendationResource(DefaultRecommendationService daoService) {
         RecommendationService service = new RecommendationService(daoService);
         return new RecommendationResource(service);
+    }
+
+    private DefaultRecommendationService createDaoRecommendationService() {
+        DefaultRecommendationService daoService = new DefaultRecommendationService();
+        daoService.setSessionFactory(hibernate.getSessionFactory());
+        return daoService;
     }
 }

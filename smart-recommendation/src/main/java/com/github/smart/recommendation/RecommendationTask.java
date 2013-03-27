@@ -8,8 +8,9 @@ public class RecommendationTask {
     private RecommendationService service;
     private SimilarityCalculator calculator;
 
-    public RecommendationTask(com.github.smart.service.RecommendationService service) {
+    public RecommendationTask(RecommendationService service, SimilarityCalculator calculator) {
         this.service = service;
+        this.calculator = calculator;
     }
 
     public void run() {
