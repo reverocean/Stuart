@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.github.smart.domain.Customer" table="CUSTOMER" lazy="false">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+
+        <property name="name" type="string">
+            <column name="NAME" not-null="true"/>
+        </property>
+
+        <set name="brands" table="CUSTOMER_BRAND">
+            <key column="CUSTOMER_ID" />
+            <element column="BRAND" type="string" />
+        </set>
+
+    </class>
+</hibernate-mapping>

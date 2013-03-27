@@ -30,6 +30,7 @@
             <list>
                 <value>Individual.hbm.xml</value>
                 <value>Profile.hbm.xml</value>
+                <value>Customer.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
