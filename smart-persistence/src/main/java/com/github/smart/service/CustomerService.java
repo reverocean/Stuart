@@ -8,6 +8,4 @@ public interface CustomerService
 
     public void save(Customer customer);
 
-    void saveIndividual(String brand);
-    void createCustomer();
 }

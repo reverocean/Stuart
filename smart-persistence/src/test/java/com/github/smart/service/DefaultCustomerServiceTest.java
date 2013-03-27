@@ -32,7 +32,7 @@ public class DefaultCustomerServiceTest
 //        defaultCustomerService.saveIndividual("aami");
 //        defaultCustomerService.saveIndividual("bingle");
         recommendationService.saveSimilarity("suncorp", "bingle", 12.0);
-        defaultCustomerService.createCustomer();
+//        defaultCustomerService.createCustomer();
         List<String> strings = recommendationService.retrieveBrands();
         Double aDouble = recommendationService.retrieveSimilarity("suncorp", "bingle");
         List<String> brands = recommendationService.findCustomerBrands(1);
