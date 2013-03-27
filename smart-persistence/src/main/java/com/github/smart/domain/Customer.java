@@ -2,55 +2,35 @@ package com.github.smart.domain;
 
 import java.util.Set;
 
-public class Customer implements SimilarityComparator<Customer>, FieldsCounter
-{
+public class Customer {
     private int id;
     private String name;
     private Set<Profile> profiles;
 
-    public Customer()
-    {
+    public Customer() {
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    @Override
-    public int compare(Customer target)
-    {
-        return 0;
-    }
-
-    @Override
-    public int totalFields()
-    {
-        return 5;
-    }
-
-    public Set<Profile> getProfiles()
-    {
+    public Set<Profile> getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(Set<Profile> profiles)
-    {
+    public void setProfiles(Set<Profile> profiles) {
         this.profiles = profiles;
     }
 }

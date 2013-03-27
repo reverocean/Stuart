@@ -1,13 +1,14 @@
 package com.github.smart.match.strategy;
 
+import com.github.smart.domain.Profile;
 import com.github.smart.match.Similarity;
 import com.github.smart.domain.Customer;
 
 public class PerfectMatchStrategy implements MatchStrategy {
     @Override
-    public Similarity match(Customer firstCustomer, Customer secondCustomer) {
-        int total = firstCustomer.totalFields();
-        int similarity = firstCustomer.compare(secondCustomer);
+    public Similarity match(Profile firstProfile, Profile secondProfile) {
+        int total = firstProfile.totalFields();
+        int similarity = firstProfile.compare(secondProfile);
         return new Similarity(getSimilarityPercentage(similarity, total));
     }
 

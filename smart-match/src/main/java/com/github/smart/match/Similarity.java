@@ -7,7 +7,11 @@ public class Similarity {
         this.percentage = percentage;
     }
 
-    public boolean greaterThan(int matchThreshold) {
-        return this.percentage > matchThreshold;
+    public boolean equalOrGreaterThan(int matchThreshold) {
+        return this.percentage >= matchThreshold;
+    }
+
+    public int getPercentage() {
+        return percentage;
     }
 }

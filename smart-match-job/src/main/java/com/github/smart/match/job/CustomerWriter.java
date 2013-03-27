@@ -3,6 +3,7 @@ package com.github.smart.match.job;
 import com.github.smart.domain.MatchIndicator;
 import com.github.smart.domain.Profile;
 import com.github.smart.match.service.MatchService;
+import com.github.smart.service.CustomerService;
 import org.springframework.batch.item.ItemWriter;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import static com.google.common.collect.Maps.newHashMap;
 
 public class CustomerWriter implements ItemWriter<Profile> {
     private MatchService matchService;
+    private CustomerService customerService;
 
     @Override
     public void write(List<? extends Profile> items) throws Exception {
@@ -40,7 +42,7 @@ public class CustomerWriter implements ItemWriter<Profile> {
         }
         if (matchService.matchCustomer(firstProfile.getId(), secondProfile.getId())) {
             matched.add(secondProfile);
-            ((MatchIndicator) secondProfile).hit();
+            secondProfile.hit();
         }
     }
 
