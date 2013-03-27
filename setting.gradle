@@ -1,1 +1,1 @@
-include 'smart-match', 'smart-persistance', 'smart-recommendation', 'smart-web'
+include 'smart-match', 'smart-persistence', 'smart-recommendation', 'smart-web'
