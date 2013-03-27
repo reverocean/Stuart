@@ -3,6 +3,7 @@ package com.github.smart.web;
 import com.bazaarvoice.dropwizard.assets.ConfiguredAssetsBundle;
 import com.github.smart.domain.Customer;
 import com.github.smart.web.config.StuartConfiguration;
+import com.github.smart.web.resources.LessThanResource;
 import com.github.smart.web.resources.StuartResource;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
@@ -34,5 +35,6 @@ public class StuartMain extends Service<StuartConfiguration> {
     @Override
     public void run(StuartConfiguration configuration, Environment environment) throws Exception {
         environment.addResource(new StuartResource());
+        environment.addResource(new LessThanResource());
     }
 }
