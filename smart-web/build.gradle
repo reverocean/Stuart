@@ -8,7 +8,7 @@ project.ext {
 }
 
 run {
-    args 'server', 'src/main/resources/stuart.yml'
+    args 'server', 'src/main/resources/stuart.yaml'
 }
 
 dependencies {

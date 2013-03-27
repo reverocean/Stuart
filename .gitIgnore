@@ -1,6 +1,6 @@
 .DS_Store
 .gradle/
 out
-Stuart.*
+Stuart.i*
 build
 *.iml
