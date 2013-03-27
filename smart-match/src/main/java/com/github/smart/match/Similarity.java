@@ -4,7 +4,6 @@ public class Similarity {
     private int percentage;
 
     public Similarity(int percentage) {
-
         this.percentage = percentage;
     }
 

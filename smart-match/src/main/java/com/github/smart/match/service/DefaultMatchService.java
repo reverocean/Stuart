@@ -11,10 +11,10 @@ public class DefaultMatchService implements MatchService{
     private CustomerService customerService;
 
     @Override
-    public boolean matchCustomer(int firstCustomerId, int secondCustomerId) {
-        Customer firstCustomer = customerService.findById(firstCustomerId);
-        Customer secondCustomer = customerService.findById(secondCustomerId);
-        Similarity similarity = matchStrategy.match(firstCustomer, secondCustomer);
+    public boolean matchCustomer(int firstProfileId, int secondProfileId) {
+        Similarity similarity = matchStrategy.match(
+                customerService.findById(firstProfileId),
+                customerService.findById(secondProfileId));
         return similarity.greaterThan(MATCH_THRESHOLD);
     }
 
