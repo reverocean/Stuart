@@ -3,6 +3,7 @@ package com.github.smart.service;
 import com.github.smart.domain.Address;
 import com.github.smart.domain.Customer;
 import com.github.smart.domain.Individual;
+import com.github.smart.domain.Profile;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Required;
@@ -38,7 +39,10 @@ public class DefaultCustomerService implements CustomerService
         individual.setEmail("davenkin");
         individual.setDateOfBirth(new Date(System.currentTimeMillis()));
         individual.setRegisterTime(new Timestamp(System.currentTimeMillis()));
-        currentSession.save(individual);
+        Profile profile = new Profile();
+        profile.setBrand("suncorp");
+        profile.setIndividual(individual);
+        currentSession.save(profile);
     }
 
     

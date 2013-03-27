@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
     <class name="com.github.smart.domain.Profile" table="PROFILE" lazy="false">
-        <id name="id" type="long">
+        <id name="id" type="int">
             <column name="ID" />
             <generator class="increment" />
         </id>
@@ -13,19 +13,7 @@
             <column name="BRAND" not-null="true"/>
         </property>
 
-        <property name="individual" type="string">
-            <column name="EM" not-null="true"/>
-        </property>
-
-        <property name="dateOfBirth" type="date">
-            <column name="DATE_OF_BIRTH" not-null="true"/>
-        </property>
-
-        <property name="registerTime" type="timestamp" not-null="true">
-            <column name="REGISTER_TIME" not-null="true" />
-        </property>
-
-        <component name="address" class="com.github.smart.domain.Address"
-
+        <one-to-one name="individual" class="com.github.smart.domain.Individual"
+                    cascade="save-update"></one-to-one>
     </class>
 </hibernate-mapping>

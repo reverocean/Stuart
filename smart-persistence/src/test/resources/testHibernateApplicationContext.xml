@@ -29,6 +29,7 @@
         <property name="mappingResources">
             <list>
                 <value>Individual.hbm.xml</value>
+                <value>Profile.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
