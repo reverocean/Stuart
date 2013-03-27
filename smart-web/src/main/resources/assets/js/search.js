@@ -1,6 +1,3 @@
-var search_url = "lessThan/";
-var recommend_url = "recommend/";
-
 var Stuart = {
     init : function(){
         $("#search_customers").keypress(function(event) {
@@ -11,13 +8,14 @@ var Stuart = {
     },
 
     search : function(limit){
+        var search_url = "lessThan/";
         limit |= 3;
         search_url += limit;
         $.get(search_url, Stuart.handle_search_response, "JSON")
     },
 
     handle_search_response : function(customers){
-        var template = "<h3><a>${name}</a><span class='brands'>Current Brands: {{each brands}}${$value} {{/each}}</span></h3><div><p id='brands_for_${customerId}'></p></div>";
+        var template = "<h3><a name='customer_name' customer_id='${customerId}'>${name}</a><span class='brands'>Current Brands: {{each brands}}${$value} {{/each}}</span></h3><div><p id='brands_for_${customerId}'></p></div>";
         $.template( "customerTemplate", template );
 
         var customers_container = $("#customers_container");
@@ -29,6 +27,8 @@ var Stuart = {
         $("#accordion").accordion({
         	heightStyle: "content"
         });
+
+        Stuart.first_customer_recommend_brands(customers);
     },
 
     first_customer_recommend_brands : function(customers){
@@ -39,7 +39,14 @@ var Stuart = {
 };
 
 var Recommendation = {
+    init : function(){
+        $("#customers_container").on("click", "a", function(){
+            Recommendation.recommend($(this).attr("customer_id"));
+        })
+    },
+
     recommend: function(id){
+        var recommend_url = "recommend/";
         recommend_url += id;
         $.get(recommend_url, function(brands){
             $("#brands_for_" + id).html(brands.join(', '))

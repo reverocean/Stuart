@@ -20,7 +20,7 @@
 	</header>
 	<section class="container">
 		<h2 class="alt">Recommendation intro...</h2>
-  		<input id="search_customers" type="text" size="40" placeholder="Search..." />
+  		<label for="search_customers">Search customers whose brands less than:</label><input id="search_customers" type="text" size="40" placeholder="Search..." />
 		<div id="customers_container">
             <div id="accordion">
             </div>
