@@ -10,19 +10,5 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Time: 3:10 PM
  */
 public class StuartConfiguration extends Configuration {
-    @NotEmpty
-    @JsonProperty
-    private String template;
 
-    @NotEmpty
-    @JsonProperty
-    private String defaultName = "Stranger";
-
-    public String getTemplate() {
-        return template;
-    }
-
-    public String getDefaultName() {
-        return defaultName;
-    }
 }
