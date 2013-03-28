@@ -37,4 +37,5 @@
     <bean id="jobRepository" class="org.springframework.batch.core.repository.support.JobRepositoryFactoryBean"
           p:dataSource-ref="dataSource"
           p:transactionManager-ref="transactionManager"/>
+
 </beans>

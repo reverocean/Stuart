@@ -3,10 +3,5 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-    <bean id="matchService" class="com.github.smart.match.service.DefaultMatchService">
-
-        <property name="matchStrategy" ref="matchStrategy"/>
-        <property name="profileService" ref="profileService"/>
-    </bean>
-    <bean id="matchStrategy" class="com.github.smart.match.strategy.PerfectMatchStrategy"/>
+    <bean id="matchService" class="com.github.smart.match.service.DefaultMatchService"/>
 </beans>

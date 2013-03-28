@@ -20,29 +20,50 @@ public class CustomerWriter implements ItemWriter<Profile> {
 
     @Override
     public void write(List<? extends Profile> items) throws Exception {
-        if (items.size() < 2) {
+        if (withoutSimilarCustomer(items)) {
+            convertAndSaveCustomers(items);
             return;
         }
-        Map<Integer, Set<Profile>> matchedProfiles = newHashMap();
+        writeSimilarCustomers(items);
+    }
 
+    private void writeSimilarCustomers(List<? extends Profile> items) {
+        Map<Integer, Set<Profile>> matchedProfiles = newHashMap();
+        fillSimilarCustomers(items, matchedProfiles);
+        writeToCustomer(matchedProfiles);
+    }
+
+    private void fillSimilarCustomers(List<? extends Profile> items, Map<Integer, Set<Profile>> matchedProfiles) {
         for (int first = 0; first < items.size() - 1; first++) {
             Profile firstProfile = items.get(first);
-
             if (firstProfile.matched()) {
                 continue;
             }
 
-            Set<Profile> matched = newHashSet();
-            for (int second = 1; second < items.size(); second++) {
-                matchAndSaveProfile(firstProfile, matched, items.get(second));
-            }
-            matched.add(firstProfile);
-
-            matchedProfiles.put(firstProfile.getId(), matched);
-            firstProfile.hit();
+            fillSimilarCustomersWithFirstProfile(items, firstProfile, matchedProfiles);
         }
+    }
 
-        writeToCustomer(matchedProfiles);
+    private void fillSimilarCustomersWithFirstProfile(List<? extends Profile> items, Profile firstProfile, Map<Integer, Set<Profile>> matchedProfiles) {
+        Set<Profile> matched = newHashSet();
+        for (int second = 1; second < items.size(); second++) {
+            matchAndSaveProfile(firstProfile, matched, items.get(second));
+        }
+        matched.add(firstProfile);
+        matchedProfiles.put(firstProfile.getId(), matched);
+        firstProfile.hit();
+    }
+
+    private boolean withoutSimilarCustomer(List<? extends Profile> items) {
+        return items.size() < 2;
+    }
+
+    private void convertAndSaveCustomers(List<? extends Profile> items) {
+        for (Profile item : items) {
+            Customer customer = new Customer();
+            customer.setName(item.getIndividual().getName());
+            customerService.save(customer);
+        }
     }
 
     private void matchAndSaveProfile(Profile firstProfile, Set<Profile> matched, Profile secondProfile) {
@@ -54,13 +75,18 @@ public class CustomerWriter implements ItemWriter<Profile> {
 
     private void writeToCustomer(Map<Integer, Set<Profile>> matchedProfiles) {
         for (Set<Profile> profiles : matchedProfiles.values()) {
-            Customer customer = new Customer();
-            customer.setName(getName(profiles));
-            if (profiles.size() > 0) {
-                customer.setProfiles(profiles);
-            }
+            Customer customer = convertToCustomer(profiles);
             customerService.save(customer);
         }
+    }
+
+    private Customer convertToCustomer(Set<Profile> profiles) {
+        Customer customer = new Customer();
+        customer.setName(getName(profiles));
+        if (profiles.size() > 0) {
+            customer.setProfiles(profiles);
+        }
+        return customer;
     }
 
     private String getName(Set<Profile> profiles) {
