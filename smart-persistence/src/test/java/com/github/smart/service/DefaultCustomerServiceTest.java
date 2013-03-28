@@ -144,6 +144,7 @@ public class DefaultCustomerServiceTest {
 
     @Test
     public void test() {
+        List<Profile> profiles = newArrayList();
         for (int j = 0; j < 6; j++) {
             for (int i = 0; i < 10; i++) {
                 Individual individual = new Individual();
@@ -164,13 +165,24 @@ public class DefaultCustomerServiceTest {
                 profile.setIndividual(individual);
                 profile.setBrand(brands[random]);
                 List<Profile> sameCustomerProfiles = newArrayList();
-                for (int k = j * 10 + i + 1; k > 0; k -= 10) {
-                    sameCustomerProfiles.add(profileService.findById(k));
+                for (Profile profileIter : profiles) {
+                    if (profileIter.getIndividual().getName().equalsIgnoreCase(individual.getName())) {
+                        sameCustomerProfiles.add(profileIter);
+                    }
                 }
-                if (sameCustomerProfiles.contains(profile)) {
-                    profileService.save(profile);
+                boolean flag = true;
+                for (Profile profileIterator : sameCustomerProfiles) {
+                    if (profileIterator.getBrand().equalsIgnoreCase(profile.getBrand())) {
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    profiles.add(profile);
                 }
             }
+        }
+        for (Profile profileIterator : profiles) {
+            profileService.save(profileIterator);
         }
     }
 
