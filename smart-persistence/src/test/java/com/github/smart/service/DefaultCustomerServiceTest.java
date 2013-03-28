@@ -26,8 +26,7 @@ import static com.google.common.collect.Sets.newHashSet;
 @TestExecutionListeners({DirtiesContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class DefaultCustomerServiceTest
-{
+public class DefaultCustomerServiceTest {
     static String[] brands = new String[]{"GIO", "Suncorp", "AAMI", "Bingle", "EverydaySuper", "APIA", "Shaun", "CIL", "SuncorpBank", "JCI"};
     static String[] names = new String[]{"Hermila Coe",
             "Carley Pruden",
@@ -141,7 +140,7 @@ public class DefaultCustomerServiceTest
 
 
     @Test
-    public void test(){
+    public void test() {
 //        defaultCustomerService.saveIndividual();
 //        defaultCustomerService.saveIndividual("suncorp");
 //        defaultCustomerService.saveIndividual("aami");
@@ -160,15 +159,13 @@ public class DefaultCustomerServiceTest
 //        System.out.println(aDouble);
 //        System.out.println(brands.get(0));
 //        System.out.println(lessBrandsCustomers.size());
-        for(String name: names)
-        {
+        for (String name : names) {
 
             Customer customer = new Customer();
             customer.setName(name);
             Profile profile = new Profile();
             int random = new Random().nextInt(10);
 
-            profile.setBrand(brands[random]);
             Individual individual = new Individual();
             individual.setName(name);
             individual.setDateOfBirth(new Date(System.currentTimeMillis()));
@@ -182,19 +179,22 @@ public class DefaultCustomerServiceTest
             address.setState("sichuan");
             address.setStreet("tianfu");
             individual.setAddress(address);
-            profile.setIndividual(individual);
-            Set<Profile> profiles = newHashSet(profile);
+            Set<Profile> profiles = null;
+            for (int i = 0; i < 20; i++) {
+                profiles = newHashSet(profile);
+                profile.setBrand(brands[random]);
+                profile.setIndividual(individual);
+                profiles.add(profile);
+            }
             customer.setProfiles(profiles);
             customerService.save(customer);
         }
 
     }
 
-    private String getRandomGender()
-    {
+    private String getRandomGender() {
         int random1 = new Random().nextInt(2);
-        if(random1==0)
-        {
+        if (random1 == 0) {
             return "MALE";
         }
         return "FEMALE";
