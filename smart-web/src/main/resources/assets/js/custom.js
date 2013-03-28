@@ -1,5 +1,4 @@
 $(function(){
-	Stuart.init();
 	Stuart.search();
 	Recommendation.init();
 
