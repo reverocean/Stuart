@@ -14,13 +14,14 @@
     <script src="assets/js/search.js" type="text/javascript"></script>
   </head>
   <body>
-  	<header class="container">
-  		<h1>Smart Logo</h1>
-	    <hr>
-	</header>
+    <div class="header-wrapper">
+        <header class="container clearfix">
+            <h1 class="logo">Smart</h1>
+            <span class="description">Smart Brands Recommendation</span>
+        </header>
+	</div>
 	<section class="container">
-		<h2 class="alt">Recommendation intro...</h2>
-  		<label for="search_customers">Search customers whose brands less than:</label><input id="search_customers" type="text" size="40" placeholder="Search..." />
+  		<!--<label for="search_customers">Search customers whose brands less than:</label><input id="search_customers" type="text" size="40" placeholder="Search..." />-->
 		<div id="customers_container">
             <div id="accordion">
             </div>

@@ -10,6 +10,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 
 @Path("/recommendFor/{id}")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,6 +27,7 @@ public class RecommendationResource {
     public List<String> recommendBrands(@PathParam("id") String customerId,
                                         @QueryParam("limit") Optional<Integer> limit) {
         logger.info("reommend for {} with limit {}", customerId, limit.or(3));
-        return service.recommendBrands(customerId, limit.or(3));
+//        return service.recommendBrands(customerId, limit.or(3));
+        return newArrayList("CTP", "BINGO");
     }
 }

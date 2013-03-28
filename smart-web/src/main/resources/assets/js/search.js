@@ -1,12 +1,4 @@
 var Stuart = {
-    init : function(){
-        $("#search_customers").keypress(function(event) {
-                                 if ( event.which == 13 ) {
-                                     Stuart.search($(this).val());
-                                  }
-                               });
-    },
-
     search : function(limit){
         var search_url = "lessThan/";
         limit |= 3;
@@ -15,7 +7,7 @@ var Stuart = {
     },
 
     handle_search_response : function(customers){
-        var template = "<h3><a name='customer_name' customer_id='${customerId}'>${name}</a><span class='brands'>Current Brands: {{each brands}}${$value} {{/each}}</span></h3><div><p id='brands_for_${customerId}'></p></div>";
+        var template = "<h3 customer_id='${id}'><span class='custom-name'>${name}</span><span class='brands'>Current Brands: {{each profiles}}${$value.brand} {{/each}}</span></h3><div><p>Recommend brands: </p><p id='brands_for_${id}'></p></div>";
         $.template( "customerTemplate", template );
 
         var customers_container = $("#customers_container");
@@ -33,20 +25,20 @@ var Stuart = {
 
     first_customer_recommend_brands : function(customers){
         if(customers.length > 0){
-            Recommendation.recommend(customers[0].customerId);
+            Recommendation.recommend(customers[0].id);
         }
     }
 };
 
 var Recommendation = {
     init : function(){
-        $("#customers_container").on("click", "a", function(){
+        $("#customers_container").on("click", "h3", function(){
             Recommendation.recommend($(this).attr("customer_id"));
         })
     },
 
     recommend: function(id){
-        var recommend_url = "recommend/";
+        var recommend_url = "recommendFor/";
         recommend_url += id;
         $.get(recommend_url, function(brands){
             $("#brands_for_" + id).html(brands.join(', '))
