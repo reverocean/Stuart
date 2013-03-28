@@ -5,6 +5,7 @@ import com.github.smart.domain.Profile;
 import com.github.smart.match.service.MatchService;
 import com.github.smart.service.CustomerService;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.beans.factory.annotation.Required;
 
 import java.util.List;
 import java.util.Map;
@@ -62,10 +63,12 @@ public class CustomerWriter implements ItemWriter<Profile> {
         return profiles.iterator().next().getIndividual().getName();
     }
 
+    @Required
     public void setMatchService(MatchService matchService) {
         this.matchService = matchService;
     }
 
+    @Required
     public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
     }

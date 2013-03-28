@@ -19,6 +19,7 @@ import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
 import com.yammer.dropwizard.views.ViewBundle;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.hibernate.SessionFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.SimpleJob;
@@ -31,6 +32,8 @@ import org.springframework.batch.core.step.item.SimpleChunkProcessor;
 import org.springframework.batch.core.step.item.SimpleChunkProvider;
 import org.springframework.batch.core.step.tasklet.TaskletStep;
 import org.springframework.batch.item.database.HibernateCursorItemReader;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 public class StuartMain extends Service<StuartConfiguration> {
@@ -56,13 +59,21 @@ public class StuartMain extends Service<StuartConfiguration> {
     @Override
     public void run(StuartConfiguration configuration, Environment environment) throws Exception {
         environment.addResource(new StuartResource());
-        environment.addResource(new LessThanResource(new DefaultLessThanService(hibernate.getSessionFactory())));
-        DefaultRecommendationService daoRecommendationService = createDaoRecommendationService();
-        environment.addResource(createRecommendationResource(daoRecommendationService));
-        environment.addResource(new RecommendResource());
 
-        environment.addResource(createMatchJobResource(configuration));
-        environment.addResource(createRecommendationJobResource(daoRecommendationService));
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                "hibernateApplicationContext.xml",
+                "dataServiceApplicationContext.xml",
+                "matchSercieApplicationContext.xml",
+                "matchJobApplicationContext.xml");
+
+
+//        environment.addResource(new LessThanResource(new DefaultLessThanService(hibernate.getSessionFactory())));
+//        DefaultRecommendationService daoRecommendationService = createDaoRecommendationService();
+//        environment.addResource(createRecommendationResource(daoRecommendationService));
+//        environment.addResource(new RecommendResource());
+//
+//        environment.addResource(createMatchJobResource(configuration));
+//        environment.addResource(createRecommendationJobResource(daoRecommendationService));
     }
 
     private RecommendationJobResource createRecommendationJobResource(DefaultRecommendationService daoRecommendationService) {

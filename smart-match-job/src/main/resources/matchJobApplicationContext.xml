@@ -3,10 +3,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
     <job id="matchJob" xmlns="http://www.springframework.org/schema/batch">
@@ -18,11 +16,14 @@
     </job>
 
     <bean id="itemReader" class="org.springframework.batch.item.database.HibernateCursorItemReader">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="queryString" value="select * from Profile"/>
         <!--<property name="jdbcTemplate" ref="jdbcTemplate"/>-->
     </bean>
 
     <bean id="itemWriter" class="com.github.smart.match.job.CustomerWriter">
-        <!--<property name="jdbcTemplate" ref="jdbcTemplate"/>-->
+        <property name="customerService" ref="customerService"/>
+        <property name="matchService" ref="matchService"/>
     </bean>
 
 
@@ -37,16 +38,4 @@
     <bean id="jobRepository" class="org.springframework.batch.core.repository.support.JobRepositoryFactoryBean"
           p:dataSource-ref="dataSource"
           p:transactionManager-ref="transactionManager"/>
-
-
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-        <property name="url" value="jdbc:hsqldb:hsql://localhost/spring-batch-db"/>
-        <property name="username" value="sa"/>
-        <property name="password" value=""/>
-    </bean>
-
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
 </beans>
