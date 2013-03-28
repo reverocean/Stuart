@@ -52,7 +52,7 @@ public class StuartMain extends Service<StuartConfiguration> {
         bootstrap.setName("Stuart");
         bootstrap.addBundle(new ViewBundle());
         bootstrap.addBundle(new ConfiguredAssetsBundle("/assets/", "/assets/"));
-        bootstrap.addBundle(hibernate);
+//        bootstrap.addBundle(hibernate);
     }
 
     @Override

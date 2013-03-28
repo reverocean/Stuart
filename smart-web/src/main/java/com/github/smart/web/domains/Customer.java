@@ -2,11 +2,6 @@ package com.github.smart.web.domains;
 
 import java.util.List;
 
-/**
- * User: Haiyang
- * Date: 3/27/13
- * Time: 6:04 PM
- */
 public class Customer {
     private int customerId;
     private String name;
