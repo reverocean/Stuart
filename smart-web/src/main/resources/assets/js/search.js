@@ -7,7 +7,7 @@ var Stuart = {
     },
 
     handle_search_response : function(customers){
-        var template = "<h3><a name='customer_name' customer_id='${id}'>${name}</a><span class='brands'>Current Brands: {{each profiles}}${$value.brand} {{/each}}</span></h3><div><p id='brands_for_${id}'></p></div>";
+        var template = "<h3 customer_id='${id}'><span class='custom-name'>${name}</span><span class='brands'>Current Brands: {{each profiles}}${$value.brand} {{/each}}</span></h3><div><p>Recommend brands: </p><p id='brands_for_${id}'></p></div>";
         $.template( "customerTemplate", template );
 
         var customers_container = $("#customers_container");
@@ -32,7 +32,7 @@ var Stuart = {
 
 var Recommendation = {
     init : function(){
-        $("#customers_container").on("click", "a", function(){
+        $("#customers_container").on("click", "h3", function(){
             Recommendation.recommend($(this).attr("customer_id"));
         })
     },

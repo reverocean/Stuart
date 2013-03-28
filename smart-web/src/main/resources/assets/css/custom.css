@@ -30,11 +30,34 @@ body {
     border: 0 none;
 }
 
-#accordion h3 a {
+#accordion h3 .custom-name {
     width: 240px;
     display: inline-block;
 }
 
 .brands {
     margin-left: 100px;
+}
+
+header.container {
+    margin: 10px auto 30px;
+
+}
+
+.description {
+    margin-left: 50px;
+    line-height: 87px;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.logo {
+    background: url(images/smart.png) no-repeat;
+    background-size: 150px;
+    text-indent: 10000px;
+    overflow: hidden;
+    width: 150px;
+    height: 87px;
+    margin: 0;
+    float: left;
 }
