@@ -1,7 +1,7 @@
 package com.github.smart.match;
 
 public class Similarity {
-    private static final int SIMILARITY_THRESHOLD = 0;
+    private static final int SIMILARITY_THRESHOLD = 20;
     private int percentage;
 
     public Similarity(int percentage) {

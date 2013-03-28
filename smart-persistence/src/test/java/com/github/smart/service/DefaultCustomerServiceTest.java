@@ -1,6 +1,7 @@
 package com.github.smart.service;
 
 import com.github.smart.domain.Address;
+import com.github.smart.domain.Customer;
 import com.github.smart.domain.Individual;
 import com.github.smart.domain.Profile;
 import org.junit.Test;
@@ -165,6 +166,13 @@ public class DefaultCustomerServiceTest
                 profileService.save(profile);
             }
         }
+    }
+
+    @Test
+    public void save_customer() {
+        Customer customer = new Customer();
+        customer.setName("ZhangYI");
+        customerService.save(customer);
     }
 
     private String getRandomGender()

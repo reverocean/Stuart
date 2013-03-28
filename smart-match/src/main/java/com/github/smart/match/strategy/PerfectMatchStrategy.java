@@ -7,13 +7,22 @@ import com.github.smart.domain.Customer;
 public class PerfectMatchStrategy implements MatchStrategy {
     @Override
     public Similarity match(Profile firstProfile, Profile secondProfile) {
-        if (perfectMatchName(firstProfile, secondProfile)) return new Similarity(0);
+        if (!perfectMatchName(firstProfile, secondProfile)) return new Similarity(0);
+
         int total = firstProfile.totalFields();
         int similarity = firstProfile.compare(secondProfile);
         return new Similarity(getSimilarityPercentage(similarity, total));
     }
 
     private boolean perfectMatchName(Profile firstProfile, Profile secondProfile) {
+        if (isNullObject(firstProfile)) {
+            return false;
+        }
+
+        if (isNullObject(secondProfile)) {
+            return false;
+        }
+
         String firstCustomerName = firstProfile.getIndividual().getName();
         String secondCustomerName = secondProfile.getIndividual().getName();
         if (firstCustomerName != null && secondCustomerName != null) {
@@ -22,6 +31,10 @@ public class PerfectMatchStrategy implements MatchStrategy {
             }
         }
         return false;
+    }
+
+    private boolean isNullObject(Profile firstProfile) {
+        return firstProfile == null || firstProfile.getIndividual() == null;
     }
 
     private int getSimilarityPercentage(int similarity, int total) {

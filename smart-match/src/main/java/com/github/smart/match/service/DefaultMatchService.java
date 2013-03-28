@@ -1,5 +1,6 @@
 package com.github.smart.match.service;
 
+import com.github.smart.domain.Profile;
 import com.github.smart.match.Similarity;
 import com.github.smart.match.strategy.MatchStrategy;
 import com.github.smart.service.ProfileService;
@@ -10,11 +11,9 @@ public class DefaultMatchService implements MatchService{
     private ProfileService profileService;
 
     @Override
-    public boolean matchCustomer(int firstProfileId, int secondProfileId) {
-        Similarity similarity = matchStrategy.match(
-                profileService.findById(firstProfileId),
-                profileService.findById(secondProfileId));
-        return similarity.satisfied();
+    public boolean matchCustomer(Profile firstProfile, Profile secondProfile) {
+        Similarity match = matchStrategy.match(firstProfile, secondProfile);
+        return match.satisfied();
     }
 
     @Required

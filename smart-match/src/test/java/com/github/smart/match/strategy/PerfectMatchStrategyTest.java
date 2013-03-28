@@ -31,7 +31,7 @@ public class PerfectMatchStrategyTest {
 
     @Test
     public void should_be_less_than_hundred_percent_match_given_different_profile() {
-        Profile firstProfile = createProfile("test1",
+        Profile firstProfile = createProfile("test",
                 "male",
                 "test@smart.com",
                 "cn",
@@ -40,7 +40,7 @@ public class PerfectMatchStrategyTest {
                 "tianfu",
                 "100");
 
-        Profile secondProfile = createProfile("test2",
+        Profile secondProfile = createProfile("test",
                 "female",
                 "test@smart.com",
                 "cn",
@@ -51,8 +51,8 @@ public class PerfectMatchStrategyTest {
 
         PerfectMatchStrategy perfectMatchStrategy = new PerfectMatchStrategy();
         Similarity similarity = perfectMatchStrategy.match(firstProfile, secondProfile);
-        assertThat(similarity.getPercentage(), is(77));
-        assertThat(similarity.satisfied(), is(false));
+        assertThat(similarity.getPercentage(), is(88));
+        assertThat(similarity.satisfied(), is(true));
     }
 
     private Profile createProfile(String name, String gender, String email, String state, String postCode, String city, String street, String addressLine) {

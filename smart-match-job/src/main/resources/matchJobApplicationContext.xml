@@ -10,7 +10,7 @@
     <job id="matchJob" xmlns="http://www.springframework.org/schema/batch">
         <step id="simpleTaskletStep">
             <tasklet>
-                <chunk reader="itemReader" writer="itemWriter" commit-interval="1"/>
+                <chunk reader="itemReader" writer="itemWriter" commit-interval="100"/>
             </tasklet>
         </step>
     </job>

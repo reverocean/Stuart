@@ -80,17 +80,17 @@ public class Individual implements SimilarityComparator<Individual>, FieldsCount
     public int compare(Individual target) {
         int compareResult = 0;
         if (isNotNullOrEmpty(this.getName(), target.getName())) {
-            if (this.getName().equalsIgnoreCase(target.getName())) {
+            if (this.getName().trim().equalsIgnoreCase(target.getName().trim())) {
                 compareResult++;
             }
         }
         if (isNotNullOrEmpty(this.getEmail(), target.getEmail())) {
-            if (this.getEmail().equalsIgnoreCase(target.getEmail())) {
+            if (this.getEmail().trim().equalsIgnoreCase(target.getEmail().trim())) {
                 compareResult++;
             }
         }
-        if (isNotNullOrEmpty(this.getName(), target.getName())) {
-            if (this.getGender().equalsIgnoreCase(target.getGender())) {
+        if (isNotNullOrEmpty(this.getGender(), target.getGender())) {
+            if (this.getGender().trim().equalsIgnoreCase(target.getGender().trim())) {
                 compareResult++;
             }
         }

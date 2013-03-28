@@ -41,7 +41,18 @@ public class Profile implements SimilarityComparator<Profile>, FieldsCounter, Ma
     }
 
     @Override
+    public boolean equals(Object o) {
+        return this.getId() == ((Profile)o).getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
     public void hit() {
+
         isMatched = true;
     }
 
