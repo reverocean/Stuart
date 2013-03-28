@@ -24,7 +24,7 @@ import java.util.Random;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class DefaultCustomerServiceTest
 {
-    static String[] brands = new String[]{"GIO", "Suncorp", "AAMI", "Bingle", "EverydaySuper", "APIA", "Shaun", "CIL", "SuncorpBank", "JCI"};
+    static String[] brands = new String[]{"aami", "apia", "bank", "bingle", "cil", "gio", "justCar", "life", "vero"};
     static String[] names = new String[]{"Hermila Coe",
             "Carley Pruden",
             "Cortez Hensler",
@@ -158,7 +158,7 @@ public class DefaultCustomerServiceTest
                 address.setState("sichuan");
                 address.setStreet("tianfu");
                 individual.setAddress(address);
-                int random = new Random().nextInt(10);
+                int random = new Random().nextInt(9);
                 Profile profile = new Profile();
                 profile.setBrand(brands[random]);
                 profile.setIndividual(individual);
