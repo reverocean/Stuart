@@ -17,8 +17,7 @@
 
     <bean id="itemReader" class="org.springframework.batch.item.database.HibernateCursorItemReader">
         <property name="sessionFactory" ref="sessionFactory"/>
-        <property name="queryString" value="select * from Profile"/>
-        <!--<property name="jdbcTemplate" ref="jdbcTemplate"/>-->
+        <property name="queryString" value="from Profile"/>
     </bean>
 
     <bean id="itemWriter" class="com.github.smart.match.job.CustomerWriter">
