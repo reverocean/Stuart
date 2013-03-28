@@ -163,7 +163,6 @@ public class DefaultCustomerServiceTest {
 
             Customer customer = new Customer();
             customer.setName(name);
-            Profile profile = new Profile();
             int random = new Random().nextInt(10);
 
             Individual individual = new Individual();
@@ -181,7 +180,8 @@ public class DefaultCustomerServiceTest {
             individual.setAddress(address);
             Set<Profile> profiles = null;
             for (int i = 0; i < 20; i++) {
-                profiles = newHashSet(profile);
+                profiles = newHashSet();
+                Profile profile = new Profile();
                 profile.setBrand(brands[random]);
                 profile.setIndividual(individual);
                 profiles.add(profile);
