@@ -7,8 +7,8 @@ import com.github.smart.match.job.CustomerWriter;
 import com.github.smart.recommendation.RecommendationService;
 import com.github.smart.recommendation.RecommendationTask;
 import com.github.smart.recommendation.SimilarityCalculator;
-import com.github.smart.service.DefaultLessThanService;
 import com.github.smart.service.DefaultRecommendationService;
+import com.github.smart.service.LessThanService;
 import com.github.smart.web.config.StuartConfiguration;
 import com.github.smart.web.resources.*;
 import com.google.common.collect.ImmutableList;
@@ -19,7 +19,6 @@ import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
 import com.yammer.dropwizard.views.ViewBundle;
 import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.SessionFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.SimpleJob;
@@ -65,6 +64,17 @@ public class StuartMain extends Service<StuartConfiguration> {
                 "dataServiceApplicationContext.xml",
                 "matchSercieApplicationContext.xml",
                 "matchJobApplicationContext.xml");
+
+        Job matchJob = context.getBean("matchJob", Job.class);
+        JobLauncher jobLauncher = context.getBean("jobLauncher", JobLauncher.class);
+        environment.addResource(new MatchJobResource(jobLauncher, matchJob));
+
+        com.github.smart.service.RecommendationService daoRecommendationService = context.getBean("recommendationService", com.github.smart.service.RecommendationService.class);
+        RecommendationTask recommendationTask = new RecommendationTask(daoRecommendationService, new SimilarityCalculator(daoRecommendationService));
+        environment.addResource(new RecommendationJobResource(recommendationTask));
+
+        environment.addResource(new RecommendationResource(new RecommendationService(daoRecommendationService)));
+        environment.addResource(new LessThanResource(context.getBean("lessThanService", LessThanService.class)));
 
 
 //        environment.addResource(new LessThanResource(new DefaultLessThanService(hibernate.getSessionFactory())));

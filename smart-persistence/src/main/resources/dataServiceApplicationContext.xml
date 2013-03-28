@@ -13,4 +13,8 @@
     <bean id="recommendationService" class="com.github.smart.service.DefaultRecommendationService">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+
+    <bean id="lessThanService" class="com.github.smart.service.DefaultLessThanService">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 </beans>
