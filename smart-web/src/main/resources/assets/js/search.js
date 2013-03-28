@@ -1,7 +1,7 @@
 var Stuart = {
     search : function(limit){
         var search_url = "lessThan/";
-        limit |= 3;
+        limit |= 7;
         search_url += limit;
         $.get(search_url, Stuart.handle_search_response, "JSON")
     },

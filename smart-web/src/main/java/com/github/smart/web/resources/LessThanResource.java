@@ -12,7 +12,6 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 import static com.google.common.collect.ImmutableSet.of;
-import static com.google.common.collect.Lists.newArrayList;
 
 @Path("/lessThan/{limit}")
 @Produces(MediaType.APPLICATION_JSON)
