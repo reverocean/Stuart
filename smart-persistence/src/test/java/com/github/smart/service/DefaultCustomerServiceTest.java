@@ -158,7 +158,7 @@ public class DefaultCustomerServiceTest
                 address.setState("sichuan");
                 address.setStreet("tianfu");
                 individual.setAddress(address);
-                int random = new Random().nextInt(10);
+                int random = new Random().nextInt(6);
                 Profile profile = new Profile();
                 profile.setBrand(brands[random]);
                 profile.setIndividual(individual);
