@@ -1,6 +1,7 @@
 package com.github.smart.recommendation;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 
 import java.util.Collections;
@@ -8,9 +9,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import static com.google.common.base.Predicates.not;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class RecommendationService {
+    private static final double ZERO_DELTA = 0.001;
     private com.github.smart.service.RecommendationService service;
 
     public RecommendationService(com.github.smart.service.RecommendationService service) {
@@ -19,7 +22,16 @@ public class RecommendationService {
 
     public List<String> recommendBrands(String customerId, int limit) {
         List<BrandSimilarity> brandSimilarities = getBrandSimilarities(service.findCustomerBrands(Integer.parseInt(customerId)), service.retrieveBrands());
-        return FluentIterable.from(brandSimilarities).transform(toBrand()).limit(limit).toList();
+        return FluentIterable.from(brandSimilarities).filter(not(zero())).transform(toBrand()).limit(limit).toList();
+    }
+
+    private Predicate<BrandSimilarity> zero() {
+        return new Predicate<BrandSimilarity>() {
+            @Override
+            public boolean apply(BrandSimilarity input) {
+                return input.getSimilarity() <= ZERO_DELTA;
+            }
+        };
     }
 
     private List<BrandSimilarity> getBrandSimilarities(Set<String> customerBrands, List<String> allBrands) {

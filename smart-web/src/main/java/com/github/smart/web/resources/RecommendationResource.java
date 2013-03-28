@@ -28,6 +28,5 @@ public class RecommendationResource {
                                         @QueryParam("limit") Optional<Integer> limit) {
         logger.info("reommend for {} with limit {}", customerId, limit.or(3));
         return service.recommendBrands(customerId, limit.or(3));
-//        return newArrayList("CTP", "BINGO");
     }
 }

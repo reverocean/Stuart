@@ -25,11 +25,6 @@ public class LessThanResource {
     @GET
     public List<Customer> getCustomers(@PathParam("limit") int limit) {
         return service.getLessBrandsCustomers(limit);
-//        return newArrayList(
-//                createCustomer(1, "Jonathan Colleman"),
-//                createCustomer(2, "Michael P"),
-//                createCustomer(3, "Rebecca C")
-//        );
     }
 
     private Customer createCustomer(int id, String name) {
