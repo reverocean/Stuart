@@ -16,15 +16,17 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Random;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testHibernateApplicationContext.xml"})
 @TestExecutionListeners({DirtiesContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class DefaultCustomerServiceTest
-{
+public class DefaultCustomerServiceTest {
     static String[] brands = new String[]{"aami", "apia", "bank", "bingle", "cil", "gio", "justCar", "life", "vero"};
     static String[] names = new String[]{"Hermila Coe",
             "Carley Pruden",
@@ -141,11 +143,9 @@ public class DefaultCustomerServiceTest
 
 
     @Test
-    public void test()
-    {
+    public void test() {
         for (int j = 0; j < 6; j++) {
-            for (int i = 0; i < 10; i++)
-            {
+            for (int i = 0; i < 10; i++) {
                 Individual individual = new Individual();
                 individual.setName(names[i]);
                 individual.setDateOfBirth(new Date(System.currentTimeMillis()));
@@ -161,9 +161,15 @@ public class DefaultCustomerServiceTest
                 individual.setAddress(address);
                 int random = new Random().nextInt(9);
                 Profile profile = new Profile();
-                profile.setBrand(brands[random]);
                 profile.setIndividual(individual);
-                profileService.save(profile);
+                profile.setBrand(brands[random]);
+                List<Profile> sameCustomerProfiles = newArrayList();
+                for (int k = j * 10 + i + 1; k > 0; k -= 10) {
+                    sameCustomerProfiles.add(profileService.findById(k));
+                }
+                if (sameCustomerProfiles.contains(profile)) {
+                    profileService.save(profile);
+                }
             }
         }
     }
@@ -175,11 +181,9 @@ public class DefaultCustomerServiceTest
         customerService.save(customer);
     }
 
-    private String getRandomGender()
-    {
+    private String getRandomGender() {
         int random1 = new Random().nextInt(2);
-        if (random1 == 0)
-        {
+        if (random1 == 0) {
             return "MALE";
         }
         return "FEMALE";
