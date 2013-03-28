@@ -1,5 +1,5 @@
 body {
-	background: #eee;
+	background: #efefef;
 }
 
 #search_customers {
@@ -39,12 +39,13 @@ body {
     margin-left: 100px;
 }
 
-header.container {
-    margin: 10px auto 30px;
-
+.header-wrapper {
+    background: white;
+    margin: 0 auto 30px;
 }
 
 .description {
+    color: #009DE2;
     margin-left: 50px;
     line-height: 87px;
     font-weight: bold;
@@ -60,4 +61,8 @@ header.container {
     height: 87px;
     margin: 0;
     float: left;
+}
+
+.ui-state-active {
+    background: #6DC4EA;
 }
