@@ -54,4 +54,8 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+ <bean id="lessThan" class="com.github.smart.service.DefaultLessThanService">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
 </beans>
