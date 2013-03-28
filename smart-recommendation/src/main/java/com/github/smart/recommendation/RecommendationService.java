@@ -6,6 +6,7 @@ import com.google.common.collect.FluentIterable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -21,7 +22,7 @@ public class RecommendationService {
         return FluentIterable.from(brandSimilarities).transform(toBrand()).limit(limit).toList();
     }
 
-    private List<BrandSimilarity> getBrandSimilarities(List<String> customerBrands, List<String> allBrands) {
+    private List<BrandSimilarity> getBrandSimilarities(Set<String> customerBrands, List<String> allBrands) {
         List<BrandSimilarity> brandSimilarities = newArrayList();
 
         for (String brand : allBrands) {
