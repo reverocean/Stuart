@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 
 
 public class DefaultRecommendationService implements RecommendationService
@@ -56,21 +57,21 @@ public class DefaultRecommendationService implements RecommendationService
         return countEitherBrandCustomer(thisBrand, thatBrand, customers);
     }
 
-    private boolean containsEitherBrand(String thisBrand, String thatBrand, List<String> customerBrands)
+    private boolean containsEitherBrand(String thisBrand, String thatBrand, Set<String> customerBrands)
     {
         return customerBrands.contains(thisBrand) || customerBrands.contains(thatBrand);
     }
 
     @Override
     @Transactional
-    public List<String> findCustomerBrands(int customerId)
+    public Set<String> findCustomerBrands(int customerId)
     {
         Session currentSession = sessionFactory.getCurrentSession();
         Customer customer = (Customer) currentSession.load(Customer.class, customerId);
 
         Function<Profile, String> brandFilter = createBrandFilter();
         Iterable<String> transform = transform(customer.getProfiles(), brandFilter);
-        return newArrayList(transform);
+        return newHashSet(transform);
 
     }
 
@@ -118,7 +119,7 @@ public class DefaultRecommendationService implements RecommendationService
         int count =0;
         for(Customer customer : customers)
         {
-            List<String> customerBrands = findCustomerBrands(customer.getId());
+            Set<String> customerBrands = findCustomerBrands(customer.getId());
             if(containsBothBrands(thisBrand, thatBrand, customerBrands))
             {
                 count++;
@@ -127,7 +128,7 @@ public class DefaultRecommendationService implements RecommendationService
         return count;
     }
 
-    private boolean containsBothBrands(String thisBrand, String thatBrand, List<String> customerBrands)
+    private boolean containsBothBrands(String thisBrand, String thatBrand, Set<String> customerBrands)
     {
         return customerBrands.contains(thisBrand) && customerBrands.contains(thatBrand);
     }
@@ -137,7 +138,7 @@ public class DefaultRecommendationService implements RecommendationService
         int count =0;
         for(Customer customer : customers)
         {
-            List<String> customerBrands = findCustomerBrands(customer.getId());
+            Set<String> customerBrands = findCustomerBrands(customer.getId());
             if(containsEitherBrand(thisBrand, thatBrand, customerBrands))
             {
                 count++;

@@ -1,6 +1,8 @@
 package com.github.smart.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public interface RecommendationService
 {
@@ -12,7 +14,7 @@ public interface RecommendationService
 
     int countEitherBrand(String thisBrand, String thatBrand);
 
-    List<String> findCustomerBrands(int customerId);
+    Set<String> findCustomerBrands(int customerId);
 
     Double retrieveSimilarity(String thisBrand, String thatBrand);
 }
