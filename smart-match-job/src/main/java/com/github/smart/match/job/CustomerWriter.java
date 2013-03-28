@@ -28,24 +28,18 @@ public class CustomerWriter implements ItemWriter<Profile> {
         for (int first = 0; first < items.size() - 1; first++) {
             Profile firstProfile = items.get(first);
 
-            boolean flag = true;
-            for (Set<Profile> profiles : matchedProfiles.values()) {
-                if (profiles.contains(firstProfile)) {
-                    flag = false;
-                    break;
-                }
+            if (firstProfile.matched()) {
+                continue;
             }
 
-            if (flag) {
-
-                Set<Profile> matched = newHashSet();
-                for (int second = 1; second < items.size(); second++) {
-                    matchAndSaveProfile(firstProfile, matched, items.get(second));
-                }
-                matched.add(firstProfile);
-
-                matchedProfiles.put(firstProfile.getId(), matched);
+            Set<Profile> matched = newHashSet();
+            for (int second = 1; second < items.size(); second++) {
+                matchAndSaveProfile(firstProfile, matched, items.get(second));
             }
+            matched.add(firstProfile);
+
+            matchedProfiles.put(firstProfile.getId(), matched);
+            firstProfile.hit();
         }
 
         writeToCustomer(matchedProfiles);
@@ -54,6 +48,7 @@ public class CustomerWriter implements ItemWriter<Profile> {
     private void matchAndSaveProfile(Profile firstProfile, Set<Profile> matched, Profile secondProfile) {
         if (matchService.matchCustomer(firstProfile, secondProfile)) {
             matched.add(secondProfile);
+            secondProfile.hit();
         }
     }
 
