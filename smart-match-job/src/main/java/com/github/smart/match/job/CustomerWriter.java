@@ -30,7 +30,7 @@ public class CustomerWriter implements ItemWriter<Profile> {
     private void writeSimilarCustomers(List<? extends Profile> items) {
         Map<Integer, Set<Profile>> matchedProfiles = newHashMap();
         fillSimilarCustomers(items, matchedProfiles);
-        writeToCustomer(matchedProfiles);
+        writeCustomers(matchedProfiles);
     }
 
     private void fillSimilarCustomers(List<? extends Profile> items, Map<Integer, Set<Profile>> matchedProfiles) {
@@ -73,7 +73,7 @@ public class CustomerWriter implements ItemWriter<Profile> {
         }
     }
 
-    private void writeToCustomer(Map<Integer, Set<Profile>> matchedProfiles) {
+    private void writeCustomers(Map<Integer, Set<Profile>> matchedProfiles) {
         for (Set<Profile> profiles : matchedProfiles.values()) {
             Customer customer = convertToCustomer(profiles);
             customerService.save(customer);
