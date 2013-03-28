@@ -50,6 +50,10 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="profileService" class="com.github.smart.service.DefaultProfileService">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
     <bean id="recommendationService" class="com.github.smart.service.DefaultRecommendationService">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>

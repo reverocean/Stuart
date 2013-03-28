@@ -4,4 +4,5 @@ import com.github.smart.domain.Profile;
 
 public interface ProfileService {
     Profile findById(int firstProfileId);
+    void save(Profile profile);
 }

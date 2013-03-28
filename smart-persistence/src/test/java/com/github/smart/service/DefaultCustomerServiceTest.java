@@ -1,7 +1,6 @@
 package com.github.smart.service;
 
 import com.github.smart.domain.Address;
-import com.github.smart.domain.Customer;
 import com.github.smart.domain.Individual;
 import com.github.smart.domain.Profile;
 import org.junit.Test;
@@ -17,16 +16,14 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Random;
-import java.util.Set;
-
-import static com.google.common.collect.Sets.newHashSet;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testHibernateApplicationContext.xml"})
 @TestExecutionListeners({DirtiesContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class DefaultCustomerServiceTest {
+public class DefaultCustomerServiceTest
+{
     static String[] brands = new String[]{"GIO", "Suncorp", "AAMI", "Bingle", "EverydaySuper", "APIA", "Shaun", "CIL", "SuncorpBank", "JCI"};
     static String[] names = new String[]{"Hermila Coe",
             "Carley Pruden",
@@ -138,63 +135,43 @@ public class DefaultCustomerServiceTest {
     @Autowired
     LessThanService lessThanService;
 
+    @Autowired
+    ProfileService profileService;
+
 
     @Test
-    public void test() {
-//        defaultCustomerService.saveIndividual();
-//        defaultCustomerService.saveIndividual("suncorp");
-//        defaultCustomerService.saveIndividual("aami");
-//        defaultCustomerService.saveIndividual("bingle");
-//        recommendationService.saveSimilarity("suncorp", "bingle", 12.0);
-//        Customer customer = new Customer();
-//        customer.setName("davenkin");
-//        customer.setProfiles(newHashSet(createProfile("suncorp"),createProfile("bingle")));
-//        defaultCustomerService.save(customer);
-//        List<String> strings = recommendationService.retrieveBrands();
-//        Double aDouble = recommendationService.retrieveSimilarity("suncorp", "bingle");
-//        List<String> brands = recommendationService.findCustomerBrands(1);
-//        List<Customer> lessBrandsCustomers = lessThanService.getLessBrandsCustomers(2);
-//        System.out.println("dd");
-//        System.out.println(strings.size());
-//        System.out.println(aDouble);
-//        System.out.println(brands.get(0));
-//        System.out.println(lessBrandsCustomers.size());
-        for (String name : names) {
-
-            Customer customer = new Customer();
-            customer.setName(name);
-            int random = new Random().nextInt(10);
-
-            Individual individual = new Individual();
-            individual.setName(name);
-            individual.setDateOfBirth(new Date(System.currentTimeMillis()));
-            individual.setEmail(name + "@gmail.com");
-            individual.setRegisterTime(new Timestamp(System.currentTimeMillis()));
-            individual.setGender(getRandomGender());
-            Address address = new Address();
-            address.setAddressLine("whatever you want");
-            address.setCity("chengdu");
-            address.setPostCode("123432");
-            address.setState("sichuan");
-            address.setStreet("tianfu");
-            individual.setAddress(address);
-            Set<Profile> profiles = null;
-            for (int i = 0; i < 20; i++) {
-                profiles = newHashSet();
+    public void test()
+    {
+        for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < 10; i++)
+            {
+                Individual individual = new Individual();
+                individual.setName(names[i]);
+                individual.setDateOfBirth(new Date(System.currentTimeMillis()));
+                individual.setEmail(names[i] + "@gmail.com");
+                individual.setRegisterTime(new Timestamp(System.currentTimeMillis()));
+                individual.setGender(getRandomGender());
+                Address address = new Address();
+                address.setAddressLine("whatever you want");
+                address.setCity("chengdu");
+                address.setPostCode("123432");
+                address.setState("sichuan");
+                address.setStreet("tianfu");
+                individual.setAddress(address);
+                int random = new Random().nextInt(10);
                 Profile profile = new Profile();
                 profile.setBrand(brands[random]);
                 profile.setIndividual(individual);
-                profiles.add(profile);
+                profileService.save(profile);
             }
-            customer.setProfiles(profiles);
-            customerService.save(customer);
         }
-
     }
 
-    private String getRandomGender() {
+    private String getRandomGender()
+    {
         int random1 = new Random().nextInt(2);
-        if (random1 == 0) {
+        if (random1 == 0)
+        {
             return "MALE";
         }
         return "FEMALE";
