@@ -142,7 +142,7 @@ public class DefaultCustomerServiceTest
     @Test
     public void test()
     {
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < 6; j++) {
             for (int i = 0; i < 10; i++)
             {
                 Individual individual = new Individual();
@@ -158,7 +158,7 @@ public class DefaultCustomerServiceTest
                 address.setState("sichuan");
                 address.setStreet("tianfu");
                 individual.setAddress(address);
-                int random = new Random().nextInt(6);
+                int random = new Random().nextInt(10);
                 Profile profile = new Profile();
                 profile.setBrand(brands[random]);
                 profile.setIndividual(individual);
