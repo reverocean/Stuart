@@ -17,18 +17,14 @@
     <div class="header-wrapper">
         <header class="container clearfix">
             <h1 class="logo">Smart</h1>
-            <span class="description">Smart Brands Recommendation</span>
+            <span class="description">GCIS</span>
         </header>
 	</div>
 	<section class="container">
-  		<!--<label for="search_customers">Search customers whose brands less than:</label><input id="search_customers" type="text" size="40" placeholder="Search..." />-->
 		<div id="customers_container">
             <div id="accordion">
             </div>
         </div>
-		<div id="dialog" title="Basic dialog">
-		  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-		</div>
 	</section>
 	<footer class="container">
 	</footer>

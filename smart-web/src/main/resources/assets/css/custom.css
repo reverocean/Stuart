@@ -45,8 +45,8 @@ body {
 }
 
 .description {
-    color: #009DE2;
-    margin-left: 50px;
+    color: rgb(79, 187, 92);
+    margin-left: 20px;
     line-height: 87px;
     font-weight: bold;
     font-size: 28px;
@@ -66,3 +66,14 @@ body {
 .ui-state-active {
     background: #6DC4EA;
 }
+
+.brand-img {
+    height: 75px;
+}
+
+.brands-title {
+    font-weight: bold;
+    color: #7c756c;
+    font-size: 19px;
+}
+

@@ -7,7 +7,9 @@ var Stuart = {
     },
 
     handle_search_response : function(customers){
-        var template = "<h3 customer_id='${id}'><span class='custom-name'>${name}</span><span class='brands'>Current Brands: {{each profiles}}${$value.brand} {{/each}}</span></h3><div><p>Recommend brands: </p><p id='brands_for_${id}'></p></div>";
+        var template = "<h3 customer_id='${id}'><span class='custom-name'>${name}</span></h3>" +
+        "<div><p class='brands-title'>Current brands: </p><p>{{each profiles}}<img class ='brand-img' src='/assets/css/images/brands/${$value.brand}.jpg'>{{/each}}</p>" +
+        "<p class='brands-title'>Recommend brands: </p><p id='brands_for_${id}'></p></div>";
         $.template( "customerTemplate", template );
 
         var customers_container = $("#customers_container");
@@ -40,8 +42,13 @@ var Recommendation = {
     recommend: function(id){
         var recommend_url = "recommendFor/";
         recommend_url += id;
+
         $.get(recommend_url, function(brands){
-            $("#brands_for_" + id).html(brands.join(', '))
+            var images = "";
+            $.each(brands, function(index, brand){
+                images += "<img class ='brand-img' src='/assets/css/images/brands/" + brand + ".jpg'>"
+            });
+            $("#brands_for_" + id).html(images)
         }, "JSON")
     }
 };
