@@ -1,11 +1,18 @@
 group = 'com.github.smart'
 version = '0.1'
 
-allprojects {
-    apply plugin: 'idea'
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'net.saliman:gradle-cobertura-plugin:2.2.5-SNAPSHOT'
+    }
 }
 
-subprojects {
+allprojects {
+    apply plugin: 'idea'
     apply plugin: 'java'
     sourceCompatibility = 1.6
     repositories {
@@ -20,8 +27,39 @@ subprojects {
                 'junit:junit:4.11'
         )
     }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'cobertura'
+
+    sourceCompatibility = 1.6
+
+    cobertura {
+        coverageFormats = ['xml']
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile(
+                'com.google.guava:guava:14.0.1'
+        )
+        testCompile(
+                'junit:junit:4.11'
+        )
+    }
 
 }
+
+configure(subprojects.findAll {it.name.contains('web')}) {
+    task hello {
+        println "*****"
+    }
+}
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.0-milestone-9'

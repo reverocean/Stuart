@@ -8,7 +8,6 @@ project.ext {
 }
 
 run {
-
     args 'server', 'src/main/resources/stuart.yaml'
 }
 
